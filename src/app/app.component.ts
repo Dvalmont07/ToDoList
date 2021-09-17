@@ -8,6 +8,8 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'ToDoList';
   taskName: string = "";
+  taskNameEdited: string = "";
+  activeLine: number = -1;
 
   toDoTaskList: any[] = [];
   doneTaskList: any[] = [];
@@ -47,4 +49,16 @@ export class AppComponent {
     this.addToDoTask(task);
   }
 
+  renameTaskName(task: any) {
+    if (task.TaskName == "") { return; }
+
+    for (let i = 0; i < this.toDoTaskList.length; i++) {
+      if (this.toDoTaskList[i].Order == task.Order) {
+        this.toDoTaskList[i].TaskName = task.TaskName;
+      }
+    }
+    this.taskNameEdited = "";
+    this.activeLine = -1;
+
+  }
 }
