@@ -13,9 +13,7 @@ export class AppComponent {
   doneTaskList: any[] = [];
 
   addToDoTask(task: any) {
-
     task.Order = this.toDoTaskList.length > 0 ? Math.max(...this.toDoTaskList.map(x => { return x.Order })) + 1 : 1;
-
     if (task.TaskName) {
       this.toDoTaskList.push(task);
       this.taskName = "";
@@ -33,9 +31,20 @@ export class AppComponent {
     });
   }
 
+  removeDoneTask(task: any) {
+    this.doneTaskList = this.doneTaskList.filter(t => {
+      return t.Order != task.Order;
+    });
+  }
+
   markAsDone(task: any) {
     this.removeTask(task);
     this.addDoneTask(task);
+  }
+
+  revertDoneTask(task: any) {
+    this.removeDoneTask(task);
+    this.addToDoTask(task);
   }
 
 }

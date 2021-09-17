@@ -9,6 +9,7 @@
 <hr />
 <h2>Done List</h2>
 <div *ngFor="let task of doneTaskList">
-  <span>{{task.Order}} - {{task.TaskName}}</span><span class="cursor-pointer" title="remove" (click)="removeTask(task)">
+  <span>{{task.Order}} - {{task.TaskName}}</span><span class="cursor-pointer" title="remove"
+    (click)="revertDoneTask(task)">
     X</span>
 </div>
