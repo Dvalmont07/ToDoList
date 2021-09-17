@@ -1,8 +1,8 @@
 <h1>ToDo List</h1>
-<input name="taskName" id="taskName" [(ngModel)]="taskName" (keyup.enter)="addTask()" />
-<input type="button" value="add" (click)="addTask()" />
+<input name="taskName" id="taskName" [(ngModel)]="taskName" (keyup.enter)="addToDoTask({Name:taskName})" />
+<input type="button" value="add" (click)="addToDoTask({Name:taskName})" />
 
-<div *ngFor="let task of taskList">
-  <span>{{task.Order}} - {{task.TaskName}}</span><span class="cursor-pointer" title="remove"
-    (click)="removeTask(task.Order)"> X</span>
+<div *ngFor="let task of toDoTaskList">
+  <span>{{task.Order}} - {{task.TaskName}}</span><span class="cursor-pointer" title="remove" (click)="removeTask(task)">
+    X</span>
 </div>

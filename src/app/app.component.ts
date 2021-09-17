@@ -9,24 +9,29 @@ export class AppComponent {
   title = 'ToDoList';
   taskName: string = "";
 
-  taskList: any[] = [];
+  toDoTaskList: any[] = [];
+  doneTaskList: any[] = [];
 
-  addTask() {
-    let order = this.taskList.length > 0 ? Math.max(...this.taskList.map(x => { return x.Order })) + 1 : 1;
-
-    this.taskList.push({ TaskName: this.taskName, Order: order });
-    this.taskName = "";
-    if (this.taskList.length > 0) {
-      console.log("AAA", this.taskList);
-      console.log("PPP", this.taskList.map(x => { return x.Order }));
-
+  addToDoTask(task: any) {
+    task.Order = this.toDoTaskList.length > 0 ? Math.max(...this.toDoTaskList.map(x => { return x.Order })) + 1 : 1;
+    if (task.Name) {
+      this.toDoTaskList.push(task);
+      this.taskName = "";
     }
   }
-  removeTask(order: any) {
 
-    this.taskList = this.taskList.filter(task => {
-      return task.Order != order;
+  addDoneTask(task: any) {
+
+    task.Order = this.doneTaskList.length > 0 ? Math.max(...this.doneTaskList.map(x => { return x.Order })) + 1 : 1;
+    this.doneTaskList.push(task);
+  }
+
+  removeTask(task: { Order: any; }) {
+    this.toDoTaskList = this.toDoTaskList.filter(t => {
+      return t.Order != task.Order;
     });
+
+    // this.doneTaskList.push(task);
   }
 
 }
