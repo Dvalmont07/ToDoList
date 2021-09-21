@@ -2,22 +2,20 @@
 
 A simple ToDo List Project
 
-## @todo funtionqalities
+## @todo features
 
 ### Ideas
 * add message sysetm
 * add group of tasks
-* record data
-* layout
+* to record data
+* pretty layout
 * reorder task list
 * schedule task
 
 ### Done
-
 *  addToDoTask
 *  addDoneTask
 *  removeTask
 *  removeDoneTask
 *  markAsDone
 *  renameTaskName
-
