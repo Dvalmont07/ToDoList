@@ -5,11 +5,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MultipleSearchFilterPipe } from './pipes/multiple-search-filter.pipe';
+import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MultipleSearchFilterPipe
+    MultipleSearchFilterPipe,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
