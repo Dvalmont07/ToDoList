@@ -1,3 +1,6 @@
+<section id="inputSearchSection">
+  <input id="txtSearch" name="txtSearch" type="search" [(ngModel)]="searchText" />
+</section>
 <section id="toDoTaskList" class="todo-task-list">
   <h1>ToDo List</h1>
   <input name="taskName" id="taskName" [(ngModel)]="taskName" (keyup.enter)="addToDoTask({TaskName: taskName})" />

@@ -10,6 +10,7 @@ export class AppComponent {
   taskName: string = "";
   taskNameEdited: string = "";
   activeLine: number = -1;
+  searchText: string = "";
 
   toDoTaskList: any[] = [];
   doneTaskList: any[] = [];
