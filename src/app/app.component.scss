@@ -2,4 +2,23 @@
   .cursor-pointer {
     cursor: pointer;
   }
+
+  .done-task-list {
+    .done-task {
+      text-decoration: line-through;
+    }
+  }
+
+  .modal-message {
+    display: flex;
+    justify-content: end;
+    z-index: 100;
+
+    .modal-message-box {
+      //display: none;
+      padding: 2.5rem;
+      width: 4.16rem;
+      background-color: cadetblue;
+    }
+  }
 }
