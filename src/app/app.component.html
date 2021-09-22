@@ -6,7 +6,7 @@
   <input name="taskName" id="taskName" [(ngModel)]="taskName" (keyup.enter)="addToDoTask({TaskName: taskName})" />
   <input type="button" value="add" (click)="addToDoTask({TaskName: taskName})" />
 
-  <div *ngFor="let task of toDoTaskList; let index = index">
+  <div *ngFor="let task of toDoTaskList | multipleSearchFilter:['TaskName']:searchText; let index = index">
     <span *ngIf="activeLine!=index" (click)="activeLine=index" title="click to edit">{{task.Order}} -
       {{task.TaskName}}</span>
     <input *ngIf="activeLine==index" type="text" [(ngModel)]="taskNameEdited"
@@ -23,7 +23,7 @@
 <hr />
 <section id="doneTaskList" class="done-task-list">
   <h2>Done List</h2>
-  <div *ngFor="let task of doneTaskList; let index = index">
+  <div *ngFor="let task of doneTaskList | multipleSearchFilter:['TaskName']:searchText; let index = index">
     <span class="done-task">{{task.Order}} - {{task.TaskName}}</span>
     <span class="cursor-pointer" title="revert" (click)="revertDoneTask(task)" class="cursor-pointer">
       *revert</span>
