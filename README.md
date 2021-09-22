@@ -19,6 +19,8 @@ A simple ToDo List Project
 * make components
 * search task
 * custom tootips
+* install Bootstrap
+* use custum pipe
 
 ### Done
 *  addToDoTask
