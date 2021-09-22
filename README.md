@@ -17,6 +17,8 @@ A simple ToDo List Project
 * reorder task list
 * schedule task
 * make components
+* search task
+* custom tootips
 
 ### Done
 *  addToDoTask
