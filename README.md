@@ -22,10 +22,10 @@ A simple ToDo List Project
 * use custum pipe
 
 ### Done
-*  addToDoTask
+* ~addToDoTask~
 *  addDoneTask
 *  removeTask
 *  removeDoneTask
 *  markAsDone
 *  renameTaskName
-* search task
+*  search task
