@@ -23,9 +23,9 @@ A simple ToDo List Project
 
 ### Done
 * ~addToDoTask~
-*  addDoneTask
-*  removeTask
-*  removeDoneTask
-*  markAsDone
-*  renameTaskName
-*  search task
+* ~addDoneTask~
+* ~removeTask~
+* ~removeDoneTask~
+* ~markAsDone~
+* ~renameTaskName~
+* ~search task~
