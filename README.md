@@ -20,6 +20,7 @@ A simple ToDo List Project
 * custom tootips
 * install Bootstrap
 * use custum pipe
+* add documentation
 
 ### Done
 * ~addToDoTask~
