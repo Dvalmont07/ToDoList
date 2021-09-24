@@ -12,7 +12,7 @@ export class AppComponent {
   activeLine: number = -1;
   searchText: string = "";
 
-  toDoTaskList: any[] = [];
+  toDoTaskList: any[] = [{ TaskName: "Task 1", Order: 1 }];
   doneTaskList: any[] = [];
 
   addToDoTask(task: any) {
