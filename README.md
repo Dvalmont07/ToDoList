@@ -17,7 +17,6 @@ A simple ToDo List Project
 * reorder task list
 * schedule task
 * make components
-* search task
 * custom tootips
 * install Bootstrap
 * use custum pipe
@@ -29,3 +28,4 @@ A simple ToDo List Project
 *  removeDoneTask
 *  markAsDone
 *  renameTaskName
+* search task
