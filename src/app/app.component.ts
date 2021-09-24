@@ -13,7 +13,7 @@ export class AppComponent {
   searchText: string = "";
 
   toDoTaskList: any[] = [{ TaskName: "Task 1", Order: 1 }];
-  doneTaskList: any[] = [];
+  doneTaskList: any[] = [{ TaskName: "Done Task 1", Order: 1 }, { TaskName: "Done Task 2", Order: 2 }, { TaskName: "Done Task 3", Order: 3 }];
 
   addToDoTask(task: any) {
     task.Order = this.toDoTaskList.length > 0 ? Math.max(...this.toDoTaskList.map(x => { return x.Order })) + 1 : 1;
@@ -61,5 +61,12 @@ export class AppComponent {
     this.taskNameEdited = "";
     this.activeLine = -1;
 
+  }
+
+  drop(event: any) {
+
+    console.log(event);
+
+    //moveItemInArray(this.movies, event.previousIndex, event.currentIndex);
   }
 }
