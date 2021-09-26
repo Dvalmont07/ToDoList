@@ -14,7 +14,6 @@ A simple ToDo List Project
 * show modal mesages
 * add group of tasks
 * to record data
-* reorder task list
 * schedule task
 * make components
 * custom tootips
@@ -30,3 +29,4 @@ A simple ToDo List Project
 * ~markAsDone~
 * ~renameTaskName~
 * ~search task~
+* ~sort task list~
