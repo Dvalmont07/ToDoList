@@ -20,6 +20,9 @@ A simple ToDo List Project
 * use custum pipe
 * add documentation
 * install Bootstrap 
+* dialog connfirmation box
+
+
 ### Done
 * ~addToDoTask~
 * ~addDoneTask~
