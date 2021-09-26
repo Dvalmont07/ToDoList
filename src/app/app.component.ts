@@ -1,3 +1,4 @@
+import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component } from '@angular/core';
 
 @Component({
@@ -63,10 +64,7 @@ export class AppComponent {
 
   }
 
-  drop(event: any) {
-
-    console.log(event);
-
-    //moveItemInArray(this.movies, event.previousIndex, event.currentIndex);
+  drop(list: any[], event: any) {
+    moveItemInArray(list, event.previousIndex, event.currentIndex);
   }
 }

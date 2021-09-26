@@ -5,8 +5,9 @@
   <h1>ToDo List</h1>
   <input name="taskName" id="taskName" [(ngModel)]="taskName" (keyup.enter)="addToDoTask({TaskName: taskName})" />
   <input type="button" value="add" (click)="addToDoTask({TaskName: taskName})" />
-  <div>
-    <div *ngFor="let task of toDoTaskList | multipleSearchFilter:['TaskName']:searchText; let index = index">
+  <div cdkDropList (cdkDropListDropped)="drop(toDoTaskList, $event)">
+    <div *ngFor="let task of toDoTaskList | multipleSearchFilter:['TaskName']:searchText; let index = index"
+      class="list-item cursor-grab" cdkDrag>
       <span *ngIf="activeLine!=index" (click)="activeLine=index" title="click to edit">{{task.Order}} -
         {{task.TaskName}}</span>
       <input *ngIf="activeLine==index" type="text" [(ngModel)]="taskNameEdited"
@@ -25,8 +26,9 @@
 <hr />
 <section id="doneTaskList" class="done-task-list">
   <h2>Done List</h2>
-  <div cdkDropList (cdkDropListDropped)="drop($event)">
-    <div *ngFor="let task of doneTaskList | multipleSearchFilter:['TaskName']:searchText; let index = index" cdkDrag>
+  <div cdkDropList (cdkDropListDropped)="drop(doneTaskList,$event)">
+    <div *ngFor="let task of doneTaskList | multipleSearchFilter:['TaskName']:searchText; let index = index"
+      class="list-item cursor-grab" cdkDrag>
       <span class="done-task">{{task.Order}} - {{task.TaskName}}</span>
       <span class="cursor-pointer" title="revert" (click)="revertDoneTask(task)" class="cursor-pointer">
         *revert</span>

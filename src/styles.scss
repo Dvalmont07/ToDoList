@@ -2,7 +2,22 @@
   --globalFontSize: 12;
   font-size: calc(var(--globalFontSize) * 1px);
 
+  .cursor-pointer {
+    cursor: pointer;
+  }
+
+  .cursor-grab {
+    cursor: grab;
+  }
+
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
