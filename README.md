@@ -17,10 +17,9 @@ A simple ToDo List Project
 * schedule task
 * make components
 * custom tootips
-* install Bootstrap 
 * use custum pipe
 * add documentation
-
+* install Bootstrap 
 ### Done
 * ~addToDoTask~
 * ~addDoneTask~
