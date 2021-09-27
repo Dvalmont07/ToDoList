@@ -15,6 +15,20 @@
 
   }
 
+  .cdk-drag-preview {
+    background-color: red;
+    margin: 2rem;
+    border: 1px solid #ccc;
+  }
+
+  .cdk-drag-placeholder {
+    background-color: brown;
+  }
+
+  .cdk-drop-list-dragging {
+    background-color: aqua;
+  }
+
   .modal-message {
     display: flex;
     justify-content: end;
