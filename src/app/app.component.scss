@@ -1,56 +1,51 @@
-:host {
-  .cursor-pointer {
-    cursor: pointer;
-  }
+@import '../assets/scss/colors.scss';
 
-  .done-task-list {
-    .done-task {
-      text-decoration: line-through;
-    }
-  }
+.tasks-list {
+  width: 500px;
+  max-width: 100%;
+  border: solid 1px #ccc;
+  display: block;
+  background: $white;
+  border-radius: 4px;
+  overflow: hidden;
+}
 
-  .list-item {
-    border: 1px solid #ccc;
-    padding: 1rem;
+.task-box {
+  padding: 20px 10px;
+  border-bottom: solid 1px #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: $white;
+}
 
-  }
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
 
-  .modal-message {
-    display: flex;
-    justify-content: end;
-    z-index: 100;
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
 
-    .modal-message-box {
-      //display: none;
-      padding: 2.5rem;
-      width: 4.16rem;
-      background-color: cadetblue;
-    }
-  }
+.example-box:last-child {
+  border: none;
+}
 
+.tasks-list.cdk-drop-list-dragging .task-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.9, 1);
+}
 
+.task-custom-placeholder {
+  background: #ccc;
+  border: dotted 3px #999;
+  min-height: 60px;
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
 
-  .cdk-drag-preview {
-    box-sizing: border-box;
-    border-radius: 4px;
-    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-      0 8px 10px 1px rgba(0, 0, 0, 0.14),
-      0 3px 14px 2px rgba(0, 0, 0, 0.12);
-  }
-
-  .cdk-drag-placeholder {
-    opacity: 0;
-  }
-
-  .cdk-drag-animating {
-    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-  }
-
-  .example-box:last-child {
-    border: none;
-  }
-
-  .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
-    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-  }
+.done-task {
+  text-decoration: line-through;
+  color: $darkgrey;
 }
