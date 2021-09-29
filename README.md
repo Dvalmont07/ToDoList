@@ -17,7 +17,6 @@ A simple ToDo List Project
 * schedule task
 * make components
 * custom tootips
-* use custum pipe
 * add documentation
 * install Bootstrap 
 * dialog connfirmation box
@@ -33,3 +32,4 @@ A simple ToDo List Project
 * ~renameTaskName~
 * ~search task~
 * ~sort task list~
+* ~use custum pipe~
