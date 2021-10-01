@@ -1,20 +1,29 @@
 import { moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { MyTask } from './interfaces/myTask';
+import { TasksService } from './services/tasks.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+
+  constructor(private tasksService: TasksService) { }
+  ngOnInit(): void {
+    this.getToDoTaskList();
+    this.getDoneTaskList();
+  }
+
   title = 'ToDoList';
   taskName: string = "";
   taskNameEdited: string = "";
   activeLine: number = -1;
   searchText: string = "";
 
-  toDoTaskList: any[] = [{ TaskName: "Task 1", Order: 1 }, { TaskName: "Task 2", Order: 2 }];
-  doneTaskList: any[] = [{ TaskName: "Done Task 1", Order: 1 }, { TaskName: "Done Task 2", Order: 2 }, { TaskName: "Done Task 3", Order: 3 }];
+  toDoTaskList: MyTask[] = [];
+  doneTaskList: MyTask[] = [];
 
   addToDoTask(task: any) {
     task.Order = this.toDoTaskList.length > 0 ? Math.max(...this.toDoTaskList.map(x => { return x.Order })) + 1 : 1;
@@ -66,5 +75,11 @@ export class AppComponent {
 
   drop(list: any[], event: any) {
     moveItemInArray(list, event.previousIndex, event.currentIndex);
+  }
+  getToDoTaskList() {
+    this.toDoTaskList = this.tasksService.getToDoTaskList();
+  }
+  getDoneTaskList() {
+    this.doneTaskList = this.tasksService.getDoneTaskList();
   }
 }
