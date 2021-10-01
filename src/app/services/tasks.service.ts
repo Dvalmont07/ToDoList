@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MyTask } from '../interfaces/myTask';
-import { DONETASKSLIST, TODOTASKSLIST } from './mocks/TaskSList';
+import { DONETASKSLIST, TODOTASKSLIST } from './mocks/TasksList';
+
 
 
 @Injectable({
