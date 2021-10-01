@@ -20,8 +20,6 @@ A simple ToDo List Project
 * add documentation
 * install Bootstrap 
 * dialog connfirmation box
-* add services
-
 
 ### Done
 * ~addToDoTask~
@@ -33,3 +31,4 @@ A simple ToDo List Project
 * ~search task~
 * ~sort task list~
 * ~use custum pipe~
+* ~add services~
