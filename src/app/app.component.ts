@@ -62,9 +62,9 @@ export class AppComponent implements OnInit {
   renameTaskName(task: any) {
     if (task.TaskName == "") { return; }
 
-    for (let i = 0; i < this.toDoTaskList.length; i++) {
-      if (this.toDoTaskList[i].Order == task.Order) {
-        this.toDoTaskList[i].TaskName = task.TaskName;
+    for (let i = 0; i < this.getToDoTaskList().length; i++) {
+      if (this.getToDoTaskList()[i].Order == task.Order) {
+        this.getToDoTaskList()[i].TaskName = task.TaskName;
       }
     }
     this.taskNameEdited = "";
@@ -76,9 +76,9 @@ export class AppComponent implements OnInit {
     moveItemInArray(list, event.previousIndex, event.currentIndex);
   }
   getToDoTaskList() {
-    return this.toDoTaskList = this.tasksService.getList(this.toDoTaskName);
+    return this.tasksService.getList(this.toDoTaskName);
   }
   getDoneTaskList() {
-    return this.doneTaskList = this.tasksService.getList(this.doneTaskName);
+    return this.tasksService.getList(this.doneTaskName);
   }
 }
