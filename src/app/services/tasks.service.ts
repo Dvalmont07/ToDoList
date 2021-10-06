@@ -10,34 +10,41 @@ import { DONETASKSLIST, TODOTASKSLIST } from './mocks/TasksList';
 })
 export class TasksService implements EntityBase {
 
+  list: Record<string, Partial<any[]>> = {};
+
   constructor() { }
   add(listName: string, task: MyTask): boolean {
 
-    let taskList = this.getList(listName);
-
-    task.Order = taskList.length > 0 ? Math.max(...taskList.map(x => { return x.Order })) + 1 : 1;
+    task.Order = this.getList(listName).length > 0 ? Math.max(...this.getList(listName).map(x => { return x.Order })) + 1 : 1;
     if (task.TaskName) {
-      taskList.push(task);
+      this.getList(listName).push(task);
       return true;
     }
     return false;
   }
-  remove(list: any[], item: any): void {
-    throw new Error('Method not implemented.');
+  remove(listName: string, task: any): void {
+
+    this.list[listName] = this.getList(listName).filter(t => {
+      return t.Order != task.Order;
+    });
+
+    console.log(this.getList(listName));
+
+    this.getList(listName);
   }
   getList(listName: string): MyTask[] {
-    if (sessionStorage[listName]) {
-      return sessionStorage[listName];
-    } else {
-      return sessionStorage[listName] = [];
+
+    if (this.list[listName] == undefined) {
+      this.list[listName] = [];
     }
+    return this.list[listName];
   }
 
 
-  getToDoTaskList(): MyTask[] {
-    return TODOTASKSLIST;
-  }
-  getDoneTaskList(): MyTask[] {
-    return DONETASKSLIST;
-  }
+  // getToDoTaskList(): MyTask[] {
+  //   return TODOTASKSLIST;
+  // }
+  // getDoneTaskList(): MyTask[] {
+  //   return DONETASKSLIST;
+  // }
 }

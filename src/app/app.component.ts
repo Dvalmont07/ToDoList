@@ -11,10 +11,6 @@ import { TasksService } from './services/tasks.service';
 export class AppComponent implements OnInit {
 
   constructor(private tasksService: TasksService) { }
-  ngOnInit(): void {
-    this.getToDoTaskList();
-    this.getDoneTaskList();
-  }
 
   title = 'ToDoList';
   taskName: string = "";
@@ -25,33 +21,36 @@ export class AppComponent implements OnInit {
   toDoTaskList: MyTask[] = [];
   doneTaskList: MyTask[] = [];
 
-  addToDoTask(task: any) {
-    task.Order = this.toDoTaskList.length > 0 ? Math.max(...this.toDoTaskList.map(x => { return x.Order })) + 1 : 1;
-    if (task.TaskName) {
-      this.toDoTaskList.push(task);
+  toDoTaskName: string = "toDoTaskList";
+  doneTaskName: string = "doneTaskList";
+
+  ngOnInit(): void {
+    this.getToDoTaskList();
+    this.getDoneTaskList();
+  }
+
+
+  addToDoTask(task: MyTask) {
+    if (this.tasksService.add(this.toDoTaskName, task)) {
       this.taskName = "";
     }
   }
 
-  addDoneTask(task: any) {
-    task.Order = this.doneTaskList.length > 0 ? Math.max(...this.doneTaskList.map(x => { return x.Order })) + 1 : 1;
-    this.doneTaskList.push(task);
+  addDoneTask(task: MyTask) {
+    this.tasksService.add(this.doneTaskName, task);
   }
 
-  removeTask(task: any) {
-    this.toDoTaskList = this.toDoTaskList.filter(t => {
-      return t.Order != task.Order;
-    });
+  removeToDoTask(task: any) {
+    this.tasksService.remove(this.toDoTaskName, task);
+
   }
 
   removeDoneTask(task: any) {
-    this.doneTaskList = this.doneTaskList.filter(t => {
-      return t.Order != task.Order;
-    });
+    this.tasksService.remove(this.doneTaskName, task);
   }
 
   markAsDone(task: any) {
-    this.removeTask(task);
+    this.removeToDoTask(task);
     this.addDoneTask(task);
   }
 
@@ -77,9 +76,9 @@ export class AppComponent implements OnInit {
     moveItemInArray(list, event.previousIndex, event.currentIndex);
   }
   getToDoTaskList() {
-    this.toDoTaskList = this.tasksService.getToDoTaskList();
+    return this.toDoTaskList = this.tasksService.getList(this.toDoTaskName);
   }
   getDoneTaskList() {
-    this.doneTaskList = this.tasksService.getDoneTaskList();
+    return this.doneTaskList = this.tasksService.getList(this.doneTaskName);
   }
 }

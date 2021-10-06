@@ -4,10 +4,11 @@
   </section>
   <section id="toDoTaskList" class="todo-task-list">
     <h1>ToDo List</h1>
-    <input name="taskName" id="taskName" [(ngModel)]="taskName" (keyup.enter)="addToDoTask({TaskName: taskName})" />
-    <input type="button" value="add" (click)="addToDoTask({TaskName: taskName})" />
+    <input name="taskName" id="taskName" [(ngModel)]="taskName"
+      (keyup.enter)="addToDoTask({TaskName: taskName, Order:0})" />
+    <input type="button" value="add" (click)="addToDoTask({TaskName: taskName,Order:0})" />
     <div cdkDropList (cdkDropListDropped)="drop(toDoTaskList, $event)" class="tasks-list">
-      <div *ngFor="let task of toDoTaskList | multipleSearchFilter:['TaskName']:searchText; let index = index"
+      <div *ngFor="let task of getToDoTaskList() | multipleSearchFilter:['TaskName']:searchText; let index = index"
         class="task-box cursor-move" cdkDrag>
         <span *ngIf="activeLine!=index" (click)="activeLine=index" title="click to edit">{{task.Order}} -
           {{task.TaskName}}</span>
@@ -28,7 +29,7 @@
   <section id="doneTaskList" class="done-task-list" cdkDropListGroup>
     <h2>Done List</h2>
     <div cdkDropList (cdkDropListDropped)="drop(doneTaskList,$event)" class="tasks-list">
-      <div *ngFor="let task of doneTaskList | multipleSearchFilter:['TaskName']:searchText; let index = index"
+      <div *ngFor="let task of  getDoneTaskList() | multipleSearchFilter:['TaskName']:searchText; let index = index"
         class="task-box cursor-move" cdkDrag>
         <div>
           <span class="done-task ">{{task.Order}} - {{task.TaskName}}</span>
