@@ -7,7 +7,9 @@
     <input name="taskName" id="taskName" [(ngModel)]="taskName"
       (keyup.enter)="addToDoTask({TaskName: taskName, Order:0})" />
     <input type="button" value="add" (click)="addToDoTask({TaskName: taskName,Order:0})" />
-    <div cdkDropList (cdkDropListDropped)="drop(getToDoTaskList(), $event)" class="tasks-list">
+
+    <div *ngIf="getToDoTaskList().length > 0;  else emptyList" cdkDropList
+      (cdkDropListDropped)="drop(getToDoTaskList(), $event)" class="tasks-list">
       <div *ngFor="let task of getToDoTaskList() | multipleSearchFilter:['TaskName']:searchText; let index = index"
         class="task-box cursor-move" cdkDrag>
         <span class="cursor-pointer" *ngIf="activeLine!=index" (click)="activeLine=index"
@@ -29,7 +31,8 @@
   <hr />
   <section id="doneTaskList" class="done-task-list" cdkDropListGroup>
     <h2>Done List</h2>
-    <div cdkDropList (cdkDropListDropped)="drop(getDoneTaskList(), $event)" class="tasks-list">
+    <div *ngIf="getDoneTaskList().length > 0; else emptyList" cdkDropList
+      (cdkDropListDropped)="drop(getDoneTaskList(), $event)" class="tasks-list">
       <div *ngFor="let task of  getDoneTaskList() | multipleSearchFilter:['TaskName']:searchText; let index = index"
         class="task-box cursor-move" cdkDrag>
         <div>
@@ -44,6 +47,10 @@
     </div>
   </section>
 </section>
+<!-- Templates -->
+<ng-template #emptyList>
+  <div>There's no tasks to be shown</div>
+</ng-template>
 <!-- Modals -->
 <section #modalMessage class="modal-message">
   <div class="modal-message-box">message</div>
