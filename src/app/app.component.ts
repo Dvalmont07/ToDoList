@@ -18,9 +18,6 @@ export class AppComponent implements OnInit {
   activeLine: number = -1;
   searchText: string = "";
 
-  toDoTaskList: MyTask[] = [];
-  doneTaskList: MyTask[] = [];
-
   toDoTaskName: string = "toDoTaskList";
   doneTaskName: string = "doneTaskList";
 
@@ -62,11 +59,8 @@ export class AppComponent implements OnInit {
   renameTaskName(task: any) {
     if (task.TaskName == "") { return; }
 
-    for (let i = 0; i < this.getToDoTaskList().length; i++) {
-      if (this.getToDoTaskList()[i].Order == task.Order) {
-        this.getToDoTaskList()[i].TaskName = task.TaskName;
-      }
-    }
+    this.tasksService.rename(this.toDoTaskName, task);
+
     this.taskNameEdited = "";
     this.activeLine = -1;
 
