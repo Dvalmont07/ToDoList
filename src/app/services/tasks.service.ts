@@ -40,14 +40,13 @@ export class TasksService implements EntityBase {
     }
     return this.list[listName];
   }
-
   rename(listName: string, task: any) {
 
-    for (let i = 0; i < this.getList(listName).length; i++) {
-      if (this.getList(listName)[i].Order == task.Order) {
-        this.getList(listName)[i].TaskName = task.TaskName;
+    this.getList(listName).some(element => {
+      if (element.Order == task.Order) {
+        element.TaskName = task.TaskName
       }
-    }
+    });
   }
 
 }
