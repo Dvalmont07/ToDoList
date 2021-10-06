@@ -15,22 +15,23 @@ export class TasksService implements EntityBase {
   constructor() { }
   add(listName: string, task: MyTask): boolean {
 
-    task.Order = this.getList(listName).length > 0 ? Math.max(...this.getList(listName).map(x => { return x.Order })) + 1 : 1;
     if (task.TaskName) {
+      task.Order = this.getList(listName).length > 0 ? Math.max(...this.getList(listName).map(x => { return x.Order })) + 1 : 1;
       this.getList(listName).push(task);
       return true;
     }
     return false;
   }
-  remove(listName: string, task: any): void {
+  remove(listName: string, task: any): boolean {
+
+    let bakpList = this.list[listName];
 
     this.list[listName] = this.getList(listName).filter(t => {
       return t.Order != task.Order;
     });
 
-    console.log(this.getList(listName));
+    return bakpList !== this.list[listName];
 
-    this.getList(listName);
   }
   getList(listName: string): MyTask[] {
 
@@ -40,11 +41,15 @@ export class TasksService implements EntityBase {
     return this.list[listName];
   }
 
+  rename(listName: string, task: any) {
 
-  // getToDoTaskList(): MyTask[] {
-  //   return TODOTASKSLIST;
-  // }
-  // getDoneTaskList(): MyTask[] {
-  //   return DONETASKSLIST;
-  // }
+    for (let i = 0; i < this.getList(listName).length; i++) {
+      if (this.getList(listName)[i].Order == task.Order) {
+        this.getList(listName)[i].TaskName = task.TaskName;
+      }
+    }
+  }
+
 }
+
+
