@@ -66,10 +66,8 @@ export class AppComponent implements OnInit {
     if (task.TaskName == "") { return; }
 
     this.tasksService.rename(this.toDoTaskName, task);
-
     this.taskNameEdited = "";
     this.activeLine = -1;
-
   }
 
   drop(list: any[], event: any) {
