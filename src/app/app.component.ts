@@ -40,23 +40,26 @@ export class AppComponent implements OnInit {
     this.tasksService.add(this.doneTaskName, task);
   }
 
-  removeToDoTask(task: any) {
-    this.tasksService.remove(this.toDoTaskName, task);
-
+  removeToDoTask(task: any): boolean {
+    return this.tasksService.remove(this.toDoTaskName, task);
   }
 
-  removeDoneTask(task: any) {
-    this.tasksService.remove(this.doneTaskName, task);
+  removeDoneTask(task: any): boolean {
+    return this.tasksService.remove(this.doneTaskName, task);
   }
 
   markAsDone(task: any) {
-    this.removeToDoTask(task);
-    this.addDoneTask(task);
+    if (this.removeToDoTask(task)) {
+      this.addDoneTask(task);
+      this.getToDoTaskList();
+    }
   }
 
   revertDoneTask(task: any) {
-    this.removeDoneTask(task);
-    this.addToDoTask(task);
+    if (this.removeDoneTask(task)) {
+      this.addToDoTask(task);
+      this.getDoneTaskList();
+    }
   }
 
   renameTaskName(task: any) {

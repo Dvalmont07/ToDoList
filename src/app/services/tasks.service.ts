@@ -9,18 +9,19 @@ import { MyTask } from '../interfaces/myTask';
 export class TasksService implements EntityBase {
 
   list: Record<string, Partial<any[]>> = {};
+  tempList: Record<string, Partial<any[]>> = {};
 
   constructor() { }
 
   add(listName: string, task: MyTask): boolean {
 
-    let tempList: MyTask[] = [];
+    //let tempList: MyTask[] = [];
 
-    this.getList(listName).subscribe(t => tempList = t);
+    this.getList(listName).subscribe(t => this.tempList[listName] = t);
 
     if (task.TaskName) {
-      task.Order = tempList.length > 0 ? Math.max(...tempList.map(x => { return x.Order })) + 1 : 1;
-      tempList.push(task);
+      task.Order = this.tempList[listName].length > 0 ? Math.max(... this.tempList[listName].map(x => { return x.Order })) + 1 : 1;
+      this.tempList[listName].push(task);
       return true;
     }
     return false;
@@ -28,15 +29,11 @@ export class TasksService implements EntityBase {
   remove(listName: string, task: any): boolean {
 
     let bakpList = this.list[listName];
-    let tempList: MyTask[] = [];
-
-    this.getList(listName).subscribe(t => tempList = t);
-
-    this.list[listName] = tempList.filter(t => {
+    this.list[listName] = this.list[listName].filter(t => {
       return t.Order != task.Order;
     });
 
-    return bakpList !== this.list[listName];
+    return (bakpList !== this.list[listName]);
 
   }
   getList(listName: string): Observable<MyTask[]> {
@@ -44,19 +41,19 @@ export class TasksService implements EntityBase {
     if (this.list[listName] == undefined) {
       this.list[listName] = [];
     }
+
     return of(this.list[listName]);
   }
   rename(listName: string, task: any) {
 
+    //let tempList: MyTask[] = [];
+    this.getList(listName).subscribe(t => this.tempList[listName] = t)
 
-    let tempList: MyTask[] = [];
-    this.getList(listName).subscribe(t => tempList = t)
-
-    tempList.some(element => {
+    this.tempList[listName].some(element => {
       if (element.Order == task.Order) {
         element.TaskName = task.TaskName
       }
     });
   }
-
 }
+;
