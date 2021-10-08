@@ -18,6 +18,9 @@ export class AppComponent implements OnInit {
   activeLine: number = -1;
   searchText: string = "";
 
+  toDoTastList: MyTask[] = []
+  doneTastList: MyTask[] = []
+
   toDoTaskName: string = "toDoTaskList";
   doneTaskName: string = "doneTaskList";
 
@@ -70,9 +73,9 @@ export class AppComponent implements OnInit {
     moveItemInArray(list, event.previousIndex, event.currentIndex);
   }
   getToDoTaskList() {
-    return this.tasksService.getList(this.toDoTaskName);
+    this.tasksService.getList(this.toDoTaskName).subscribe(t => this.toDoTastList = t);
   }
   getDoneTaskList() {
-    return this.tasksService.getList(this.doneTaskName);
+    return this.tasksService.getList(this.doneTaskName).subscribe(t => this.doneTastList = t);
   }
 }
