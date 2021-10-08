@@ -51,14 +51,14 @@ export class AppComponent implements OnInit {
   markAsDone(task: any) {
     if (this.removeToDoTask(task)) {
       this.addDoneTask(task);
-      this.getToDoTaskList();
+      // this.getToDoTaskList();
     }
   }
 
   revertDoneTask(task: any) {
     if (this.removeDoneTask(task)) {
       this.addToDoTask(task);
-      this.getDoneTaskList();
+      //  this.getDoneTaskList();
     }
   }
 
