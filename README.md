@@ -9,6 +9,12 @@ A simple ToDo List Project
 * Fonts
 * inputs
 
+### Knowledge applyed
+* template
+* service
+* interpolation
+* responsability layers
+
 ### Ideas
 * add message system
 * show modal mesages
