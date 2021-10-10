@@ -1,5 +1,6 @@
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
+import { arrayHelper } from './helper/arrayHelper';
 import { MyTask } from './interfaces/myTask';
 import { TasksService } from './services/tasks.service';
 
@@ -18,8 +19,8 @@ export class AppComponent implements OnInit {
   activeLine: number = -1;
   searchText: string = "";
 
-  toDoTastList: MyTask[] = []
-  doneTastList: MyTask[] = []
+  toDoTaskList: MyTask[] = []
+  doneTaskList: MyTask[] = []
 
   toDoTaskName: string = "toDoTaskList";
   doneTaskName: string = "doneTaskList";
@@ -51,14 +52,12 @@ export class AppComponent implements OnInit {
   markAsDone(task: any) {
     if (this.removeToDoTask(task)) {
       this.addDoneTask(task);
-      //this.getToDoTaskList();
     }
   }
 
   revertDoneTask(task: any) {
     if (this.removeDoneTask(task)) {
       this.addToDoTask(task);
-      //  this.getDoneTaskList();
     }
   }
 
@@ -71,12 +70,14 @@ export class AppComponent implements OnInit {
   }
 
   drop(list: any[], event: any) {
+
     moveItemInArray(list, event.previousIndex, event.currentIndex);
+    arrayHelper.saveToSession(list);
   }
   getToDoTaskList() {
-    return this.tasksService.get(this.toDoTaskName).subscribe(t => this.toDoTastList = t);
+    return this.tasksService.get(this.toDoTaskName).subscribe(t => this.toDoTaskList = t);
   }
   getDoneTaskList() {
-    return this.tasksService.get(this.doneTaskName).subscribe(t => this.doneTastList = t);
+    return this.tasksService.get(this.doneTaskName).subscribe(t => this.doneTaskList = t);
   }
 }
