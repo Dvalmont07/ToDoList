@@ -74,9 +74,9 @@ export class AppComponent implements OnInit {
     moveItemInArray(list, event.previousIndex, event.currentIndex);
   }
   getToDoTaskList() {
-    this.tasksService.getList(this.toDoTaskName).subscribe(t => this.toDoTastList = t);
+    this.tasksService.get(this.toDoTaskName).subscribe(t => this.toDoTastList = t);
   }
   getDoneTaskList() {
-    return this.tasksService.getList(this.doneTaskName).subscribe(t => this.doneTastList = t);
+    return this.tasksService.get(this.doneTaskName).subscribe(t => this.doneTastList = t);
   }
 }

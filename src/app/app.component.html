@@ -6,7 +6,7 @@
     <h1>ToDo List</h1>
     <input name="taskName" id="taskName" [(ngModel)]="taskName"
       (keyup.enter)="addToDoTask({TaskName: taskName, Order:0})" />
-    <input type="button" value="add" (click)="addToDoTask({TaskName: taskName,Order:0})" />
+    <input type="button" value="add" (click)="addToDoTask({TaskName: taskName, Order:0})" />
 
     <div *ngIf="toDoTastList.length > 0;  else emptyList" cdkDropList (cdkDropListDropped)="drop(toDoTastList, $event)"
       class="tasks-list">
