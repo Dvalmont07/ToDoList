@@ -10,7 +10,7 @@ A simple ToDo List Project
 * inputs
 
 ### Ideas
-* add message sysetm
+* add message system
 * show modal mesages
 * add group of tasks
 * schedule task
