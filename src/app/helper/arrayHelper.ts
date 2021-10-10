@@ -8,7 +8,6 @@ export class arrayHelper {
         });
         return newArray;
     }
-
     public static saveToSession(list: any[]) {
         return JSON.stringify(list);
     }

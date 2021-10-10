@@ -1,3 +1,4 @@
+import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { arrayHelper } from '../helper/arrayHelper';
@@ -46,8 +47,6 @@ export class TasksService implements EntityBase {
   }
   rename(listName: string, task: MyTask) {
 
-    //this.get(listName).subscribe(t => this.list[listName] = t)
-
     this.list[listName].some(element => {
       if (element.Order == task.Order) {
         element.TaskName = task.TaskName
@@ -55,5 +54,10 @@ export class TasksService implements EntityBase {
     });
 
     sessionStorage[listName] = arrayHelper.saveToSession(this.list[listName]);
+  }
+  moveItemInArray(list: any[], event: any, listName: string) {
+
+    moveItemInArray(list, event.previousIndex, event.currentIndex);
+    sessionStorage[listName] = arrayHelper.saveToSession(list);
   }
 }

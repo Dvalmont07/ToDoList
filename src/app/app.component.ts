@@ -1,6 +1,4 @@
-import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
-import { arrayHelper } from './helper/arrayHelper';
 import { MyTask } from './interfaces/myTask';
 import { TasksService } from './services/tasks.service';
 
@@ -22,8 +20,8 @@ export class AppComponent implements OnInit {
   toDoTaskList: MyTask[] = []
   doneTaskList: MyTask[] = []
 
-  toDoTaskName: string = "toDoTaskList";
-  doneTaskName: string = "doneTaskList";
+  readonly toDoTaskName: string = "toDoTaskList";
+  readonly doneTaskName: string = "doneTaskList";
 
   ngOnInit(): void {
     this.getToDoTaskList();
@@ -69,10 +67,9 @@ export class AppComponent implements OnInit {
     this.activeLine = -1;
   }
 
-  drop(list: any[], event: any) {
+  drop(list: any[], event: any, listName: string) {
 
-    moveItemInArray(list, event.previousIndex, event.currentIndex);
-    arrayHelper.saveToSession(list);
+    this.tasksService.moveItemInArray(list, event, listName);
   }
   getToDoTaskList() {
     return this.tasksService.get(this.toDoTaskName).subscribe(t => this.toDoTaskList = t);
