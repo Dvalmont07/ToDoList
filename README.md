@@ -14,13 +14,14 @@ A simple ToDo List Project
 * service
 * interpolation
 * responsability layers
+* Custom pipe
 
 ### Ideas
 * add message system
-* show modal mesages
+* show modal mesages +
 * add group of tasks
 * schedule task
-* make components
+* make general omponents
 * custom tootips
 * add documentation
 * install Bootstrap 
