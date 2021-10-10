@@ -9,7 +9,7 @@ A simple ToDo List Project
 * Fonts
 * inputs
 
-### Knowledge applyed
+### Applied knowledge
 * template
 * service
 * interpolation
