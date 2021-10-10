@@ -9,4 +9,11 @@ export class arrayHelper {
         return newArray;
     }
 
+    public static saveToSession(list: any[]) {
+        return JSON.stringify(list);
+    }
+    public static getFromSession(json: string) {
+        return JSON.parse(json);
+    }
+
 }

@@ -18,7 +18,7 @@ export class TasksService implements EntityBase {
     if (task.TaskName) {
       task.Order = this.list[listName].length > 0 ? Math.max(... this.list[listName].map(x => { return x.Order })) + 1 : 1;
       this.list[listName].push(task);
-      sessionStorage[listName] = JSON.stringify(this.list[listName]);
+      sessionStorage[listName] = arrayHelper.saveToSession(this.list[listName]);
       return true;
     }
     return false;
@@ -32,13 +32,13 @@ export class TasksService implements EntityBase {
         this.list[listName].splice(index, 1);
       }
     });
-    sessionStorage[listName] = JSON.stringify(this.list[listName]);
+    sessionStorage[listName] = arrayHelper.saveToSession(this.list[listName]);
     return (bakpList !== this.list[listName]);
   }
   get(listName: string): Observable<MyTask[]> {
 
     if (sessionStorage[listName]) {
-      this.list[listName] = JSON.parse(sessionStorage[listName]);
+      this.list[listName] = arrayHelper.getFromSession(sessionStorage[listName]);
     } else {
       this.list[listName] = [];
     }
@@ -46,13 +46,14 @@ export class TasksService implements EntityBase {
   }
   rename(listName: string, task: MyTask) {
 
-    //let tempList: MyTask[] = [];
-    this.get(listName).subscribe(t => this.list[listName] = t)
+    //this.get(listName).subscribe(t => this.list[listName] = t)
 
     this.list[listName].some(element => {
       if (element.Order == task.Order) {
         element.TaskName = task.TaskName
       }
     });
+
+    sessionStorage[listName] = arrayHelper.saveToSession(this.list[listName]);
   }
 }
