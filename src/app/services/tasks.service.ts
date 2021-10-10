@@ -10,7 +10,6 @@ import { MyTask } from '../interfaces/myTask';
 export class TasksService implements EntityBase {
 
   list: Record<string, Partial<any[]>> = {};
-  //tempList: Record<string, Partial<any[]>> = {};
 
   constructor() { }
 
@@ -23,36 +22,15 @@ export class TasksService implements EntityBase {
     }
     return false;
   }
-  remove(listName: string, task: any): boolean {
+  remove(listName: string, task: MyTask): boolean {
 
-    // let bakpList = this.list[listName];
     let bakpList: any[] = arrayHelper.clone(this.list[listName]);
-
-    // this.list[listName].forEach((value, index) => {
-    //   bakpList[index] = value;
-    // });
-
-    console.log("this.list[listName]1", this.list[listName]);
-    console.log("bakpList[index]1", bakpList);
-
 
     this.list[listName].forEach((value, index) => {
       if (value.Order === task.Order) {
         this.list[listName].splice(index, 1);
       }
     });
-
-
-    // this.list[listName] = this.list[listName].filter(t => {
-    //   return t.Order != task.Order;
-    // });
-
-    // this.list[listName].push({ 'TaskName': 'Dorao', Order: 10 })
-
-
-    console.log("this.list[listName]2", this.list[listName]);
-    console.log("bakpList[index]2", bakpList);
-
     return (bakpList !== this.list[listName]);
   }
   get(listName: string): Observable<MyTask[]> {
@@ -62,7 +40,7 @@ export class TasksService implements EntityBase {
     }
     return of(this.list[listName]);
   }
-  rename(listName: string, task: any) {
+  rename(listName: string, task: MyTask) {
 
     //let tempList: MyTask[] = [];
     this.get(listName).subscribe(t => this.list[listName] = t)
