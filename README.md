@@ -20,6 +20,7 @@ A simple ToDo List Project
 * add documentation
 * install Bootstrap 
 * dialog connfirmation box
+* change list by droping
 
 ### Done
 * ~addToDoTask~
