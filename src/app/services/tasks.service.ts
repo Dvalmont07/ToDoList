@@ -32,7 +32,7 @@ export class TasksService implements EntityBase {
     });
     return (bakpList !== this.list[listName]);
   }
-  getList(listName: string): Observable<MyTask[]> {
+  get(listName: string): Observable<MyTask[]> {
 
     if (this.list[listName] == undefined) {
       this.list[listName] = [];
@@ -42,7 +42,7 @@ export class TasksService implements EntityBase {
   rename(listName: string, task: any) {
 
     //let tempList: MyTask[] = [];
-    this.getList(listName).subscribe(t => this.list[listName] = t)
+    this.get(listName).subscribe(t => this.list[listName] = t)
 
     this.list[listName].some(element => {
       if (element.Order == task.Order) {
