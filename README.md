@@ -21,7 +21,6 @@ A simple ToDo List Project
 * install Bootstrap 
 * dialog connfirmation box
 * change list by droping
-* clone array
 
 ### Done
 * ~addToDoTask~
@@ -34,3 +33,4 @@ A simple ToDo List Project
 * ~sort task list~
 * ~use custum pipe~
 * ~add services~
+* ~clone array~
