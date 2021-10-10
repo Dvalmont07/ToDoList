@@ -13,10 +13,20 @@
     cursor: move;
   }
 
-  body {
-    margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-    font-size: calc(var(--globalFontSize) * 1px);
-  }
+  // body {
+  //   margin: 0;
+  //   font-family: Roboto, "Helvetica Neue", sans-serif;
+  //   font-size: calc(var(--globalFontSize) * 1px);
+  // }
 
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }

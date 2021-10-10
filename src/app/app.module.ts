@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { MultipleSearchFilterPipe } from './pipes/multiple-search-filter.pipe';
 import { FilterPipe } from './pipes/filter.pipe';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
@@ -18,7 +20,10 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    DragDropModule
+    DragDropModule,
+    BrowserAnimationsModule,
+
+
   ],
   providers: [],
   bootstrap: [AppComponent]

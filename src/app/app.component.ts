@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MyTask } from './interfaces/myTask';
 import { TasksService } from './services/tasks.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,9 @@ import { TasksService } from './services/tasks.service';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private tasksService: TasksService) { }
+  constructor(
+    private tasksService: TasksService,
+    public dialog: MatDialog) { }
 
   title = 'ToDoList';
   taskName: string = "";
@@ -77,4 +80,6 @@ export class AppComponent implements OnInit {
   getDoneTaskList() {
     return this.tasksService.get(this.doneTaskName).subscribe(t => this.doneTaskList = t);
   }
+
+
 }
