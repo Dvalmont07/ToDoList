@@ -13,7 +13,6 @@ A simple ToDo List Project
 * add message sysetm
 * show modal mesages
 * add group of tasks
-* to record data
 * schedule task
 * make components
 * custom tootips
@@ -34,3 +33,4 @@ A simple ToDo List Project
 * ~use custum pipe~
 * ~add services~
 * ~clone array~
+* ~to record data~
