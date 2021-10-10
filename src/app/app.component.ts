@@ -51,7 +51,7 @@ export class AppComponent implements OnInit {
   markAsDone(task: any) {
     if (this.removeToDoTask(task)) {
       this.addDoneTask(task);
-      // this.getToDoTaskList();
+      //this.getToDoTaskList();
     }
   }
 
@@ -74,7 +74,7 @@ export class AppComponent implements OnInit {
     moveItemInArray(list, event.previousIndex, event.currentIndex);
   }
   getToDoTaskList() {
-    this.tasksService.get(this.toDoTaskName).subscribe(t => this.toDoTastList = t);
+    return this.tasksService.get(this.toDoTaskName).subscribe(t => this.toDoTastList = t);
   }
   getDoneTaskList() {
     return this.tasksService.get(this.doneTaskName).subscribe(t => this.doneTastList = t);

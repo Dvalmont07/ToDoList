@@ -21,6 +21,7 @@ A simple ToDo List Project
 * install Bootstrap 
 * dialog connfirmation box
 * change list by droping
+* clone array
 
 ### Done
 * ~addToDoTask~
