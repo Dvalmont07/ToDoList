@@ -19,6 +19,7 @@
           (keyup.enter)="renameTaskName({TaskName: taskNameEdited, Order: task.Order})" />
         <span *ngIf="activeLine!=index" title="mark as done" (click)="markAsDone(task)" class="cursor-pointer">
           *mark as done |</span>
+        <span class="cursor-pointer" (click)="removeToDoTask(task)"> | REMOVE</span>
         <span *ngIf="activeLine==index" title="ok"
           (click)="renameTaskName({TaskName: taskNameEdited, Order: task.Order})">
           *ok | </span>
@@ -41,7 +42,7 @@
         <div>
           <span class="cursor-pointer" title="revert" (click)="revertDoneTask(task)" class="cursor-pointer">
             *revert</span>
-          <span style="cursor: move;"> | MOVE</span>
+          <span class="cursor-pointer" (click)="removeDoneTask(task)"> | REMOVE</span>
         </div>
       </div>
     </div>
