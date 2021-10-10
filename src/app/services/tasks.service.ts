@@ -18,6 +18,7 @@ export class TasksService implements EntityBase {
     if (task.TaskName) {
       task.Order = this.list[listName].length > 0 ? Math.max(... this.list[listName].map(x => { return x.Order })) + 1 : 1;
       this.list[listName].push(task);
+      sessionStorage[listName] = JSON.stringify(this.list[listName]);
       return true;
     }
     return false;
@@ -31,11 +32,14 @@ export class TasksService implements EntityBase {
         this.list[listName].splice(index, 1);
       }
     });
+    sessionStorage[listName] = JSON.stringify(this.list[listName]);
     return (bakpList !== this.list[listName]);
   }
   get(listName: string): Observable<MyTask[]> {
 
-    if (this.list[listName] == undefined) {
+    if (sessionStorage[listName]) {
+      this.list[listName] = JSON.parse(sessionStorage[listName]);
+    } else {
       this.list[listName] = [];
     }
     return of(this.list[listName]);
@@ -52,4 +56,3 @@ export class TasksService implements EntityBase {
     });
   }
 }
-;
