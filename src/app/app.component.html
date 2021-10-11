@@ -1,5 +1,3 @@
-<button mat-button (click)="openDialog()">Open dialog</button>
-
 <section id="tasksContainer" class="tasks-container">
   <section id="inputSearchSection">
     <input id="txtSearch" name="txtSearch" type="search" [(ngModel)]="searchText" />
@@ -21,7 +19,7 @@
           (keyup.enter)="renameTaskName({TaskName: taskNameEdited, Order: task.Order})" />
         <span *ngIf="activeLine!=index" title="mark as done" (click)="markAsDone(task)" class="cursor-pointer">
           *mark as done |</span>
-        <span class="cursor-pointer" (click)="removeToDoTask(task)"> | REMOVE</span>
+        <span class="cursor-pointer" (click)="openConfirmRemoveDialog(task,toDoTaskName)"> | REMOVE</span>
         <span *ngIf="activeLine==index" title="ok"
           (click)="renameTaskName({TaskName: taskNameEdited, Order: task.Order})">
           *ok | </span>
@@ -44,7 +42,7 @@
         <div>
           <span class="cursor-pointer" title="revert" (click)="revertDoneTask(task)" class="cursor-pointer">
             *revert</span>
-          <span class="cursor-pointer" (click)="removeDoneTask(task)"> | REMOVE</span>
+          <span class="cursor-pointer" (click)="openConfirmRemoveDialog(task,doneTaskName)"> | REMOVE</span>
         </div>
       </div>
     </div>

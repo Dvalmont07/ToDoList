@@ -8,12 +8,15 @@ import { MultipleSearchFilterPipe } from './pipes/multiple-search-filter.pipe';
 import { FilterPipe } from './pipes/filter.pipe';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatDialogModule } from '@angular/material/dialog';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ConfirmDialogModalComponent } from './componets/confirm-dialog-modal/confirm-dialog-modal.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
 @NgModule({
   declarations: [
     AppComponent,
     MultipleSearchFilterPipe,
-    FilterPipe
+    FilterPipe,
+    ConfirmDialogModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -21,9 +24,11 @@ import { MatDialogModule } from '@angular/material/dialog';
     FormsModule,
     DragDropModule,
     MatDialogModule,
-
+    BrowserAnimationsModule,
+    MatFormFieldModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+
 })
 export class AppModule { }

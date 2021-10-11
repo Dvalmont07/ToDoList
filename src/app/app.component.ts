@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MyTask } from './interfaces/myTask';
 import { TasksService } from './services/tasks.service';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { DialogModalComponent } from './componets/dialog-modal/dialog-modal.component';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ConfirmDialogModalComponent } from './componets/confirm-dialog-modal/confirm-dialog-modal.component';
 
 @Component({
   selector: 'app-root',
@@ -30,45 +30,36 @@ export class AppComponent implements OnInit {
     this.getDoneTaskList();
   }
 
-
   addToDoTask(task: MyTask) {
     if (this.tasksService.add(this.toDoTaskName, task)) {
       this.taskName = "";
     }
   }
-
   addDoneTask(task: MyTask) {
     this.tasksService.add(this.doneTaskName, task);
   }
-
   removeToDoTask(task: any): boolean {
     return this.tasksService.remove(this.toDoTaskName, task);
   }
-
   removeDoneTask(task: any): boolean {
     return this.tasksService.remove(this.doneTaskName, task);
   }
-
   markAsDone(task: any) {
     if (this.removeToDoTask(task)) {
       this.addDoneTask(task);
     }
   }
-
   revertDoneTask(task: any) {
     if (this.removeDoneTask(task)) {
       this.addToDoTask(task);
     }
   }
-
   renameTaskName(task: any) {
     if (task.TaskName == "") { return; }
-
     this.tasksService.rename(this.toDoTaskName, task);
     this.taskNameEdited = "";
     this.activeLine = -1;
   }
-
   drop(list: any[], event: any, listName: string) {
 
     this.tasksService.moveItemInArray(list, event, listName);
@@ -79,12 +70,21 @@ export class AppComponent implements OnInit {
   getDoneTaskList() {
     return this.tasksService.get(this.doneTaskName).subscribe(t => this.doneTaskList = t);
   }
+  openConfirmRemoveDialog(task: MyTask, listName: string) {
 
-  openDialog() {
-    const dialogRef = this.dialog.open(DialogModalComponent);
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = { Title: "Remove Task", Message: 'Are you sure you want to remove this task?', Result: false }
+    const dialogRef = this.dialog.open(ConfirmDialogModalComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      if (result === true) {
+        this.tasksService.remove(listName, task);
+      }
     });
   }
 }
+
+
