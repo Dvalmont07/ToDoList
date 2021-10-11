@@ -3,7 +3,9 @@
     <input id="txtSearch" name="txtSearch" type="search" [(ngModel)]="searchText" />
   </section>
   <section id="toDoTaskList" class="todo-task-list">
-    <h1>ToDo List</h1>
+    <header class="my-2">
+      <h1>ToDo List</h1>
+    </header>
     <input name="taskName" id="taskName" [(ngModel)]="taskName"
       (keyup.enter)="addToDoTask({TaskName: taskName, Order:0})" />
     <input type="button" value="add" (click)="addToDoTask({TaskName: taskName, Order:0})" />
@@ -28,10 +30,11 @@
       </div>
     </div>
   </section>
-
-  <hr />
+  <mat-divider></mat-divider>
   <section id="doneTaskList" class="done-task-list" cdkDropListGroup>
-    <h2>Done List</h2>
+    <header>
+      <h2>Done List</h2>
+    </header>
     <div *ngIf="doneTaskList.length > 0; else emptyList" cdkDropList
       (cdkDropListDropped)="drop(doneTaskList, $event, doneTaskName)" class="tasks-list">
       <div *ngFor="let task of  doneTaskList | multipleSearchFilter:['TaskName']:searchText; let index = index"
