@@ -7,7 +7,7 @@
     <input name="taskName" id="taskName" [(ngModel)]="taskName"
       (keyup.enter)="addToDoTask({TaskName: taskName, Order:0})" />
     <input type="button" value="add" (click)="addToDoTask({TaskName: taskName, Order:0})" />
-
+    <div>{{message}}</div>
     <div *ngIf="toDoTaskList.length > 0;  else emptyList" cdkDropList
       (cdkDropListDropped)="drop(toDoTaskList, $event, toDoTaskName)" class="tasks-list">
       <div *ngFor="let task of toDoTaskList | multipleSearchFilter:['TaskName']:searchText; let index = index"

@@ -24,6 +24,7 @@ export class AppComponent implements OnInit {
 
   readonly toDoTaskName: string = "toDoTaskList";
   readonly doneTaskName: string = "doneTaskList";
+  message: string = "";
 
   ngOnInit(): void {
     this.getToDoTaskList();
@@ -33,6 +34,9 @@ export class AppComponent implements OnInit {
   addToDoTask(task: MyTask) {
     if (this.tasksService.add(this.toDoTaskName, task)) {
       this.taskName = "";
+      this.message = "";
+    } else {
+      this.message = "This field cannot be empty";
     }
   }
   addDoneTask(task: MyTask) {
