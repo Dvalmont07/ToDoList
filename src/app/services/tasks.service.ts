@@ -10,54 +10,68 @@ import { MyTask } from '../interfaces/myTask';
 })
 export class TasksService implements EntityBase {
 
-  list: Record<string, Partial<any[]>> = {};
+  taskList: any[] = [];
+  // list: Record<string, Partial<any[]>> = {};
 
   constructor() { }
+  update(task: MyTask): boolean {
+    let bakpList: any[] = arrayHelper.clone(this.taskList);
 
-  add(listName: string, task: MyTask): boolean {
+    this.taskList.forEach((value, index) => {
+      if (value.Order === task.Order) {
+        value.Done = task.Done;
+      }
+    });
+    sessionStorage['taskList'] = arrayHelper.saveToSession(this.taskList);
+    return (bakpList !== this.taskList);
+  }
 
-    if (task.TaskName) {
-      task.Order = this.list[listName].length > 0 ? Math.max(... this.list[listName].map(x => { return x.Order })) + 1 : 1;
-      this.list[listName].push(task);
-      sessionStorage[listName] = arrayHelper.saveToSession(this.list[listName]);
+  add(task: MyTask): boolean {
+        if (task.TaskName) {
+      task.Order = this.taskList.length > 0 ? Math.max(... this.taskList.map(x => { return x.Order })) + 1 : 1;
+      this.taskList.push(task);
+      sessionStorage['taskList'] = arrayHelper.saveToSession(this.taskList);
       return true;
     }
     return false;
   }
-  remove(listName: string, task: MyTask): boolean {
+  remove(task: MyTask): boolean {
 
-    let bakpList: any[] = arrayHelper.clone(this.list[listName]);
+    let bakpList: any[] = arrayHelper.clone(this.taskList);
 
-    this.list[listName].forEach((value, index) => {
+    this.taskList.forEach((value, index) => {
       if (value.Order === task.Order) {
-        this.list[listName].splice(index, 1);
+        this.taskList.splice(index, 1);
       }
     });
-    sessionStorage[listName] = arrayHelper.saveToSession(this.list[listName]);
-    return (bakpList !== this.list[listName]);
+    sessionStorage['taskList'] = arrayHelper.saveToSession(this.taskList);
+    return (bakpList !== this.taskList);
   }
-  get(listName: string): Observable<MyTask[]> {
+  get(): Observable<MyTask[]> {
 
-    if (sessionStorage[listName]) {
-      this.list[listName] = arrayHelper.getFromSession(sessionStorage[listName]);
+    if (sessionStorage['taskList']) {
+      this.taskList = arrayHelper.getFromSession(sessionStorage['taskList']);
     } else {
-      this.list[listName] = [];
+      this.taskList = [];
     }
-    return of(this.list[listName]);
-  }
-  rename(listName: string, task: MyTask) {
 
-    this.list[listName].some(element => {
+    return of(this.taskList);
+  }
+
+  rename(task: MyTask) {
+
+    this.taskList.some(element => {
       if (element.Order == task.Order) {
         element.TaskName = task.TaskName
       }
     });
 
-    sessionStorage[listName] = arrayHelper.saveToSession(this.list[listName]);
+    sessionStorage['taskList'] = arrayHelper.saveToSession(this.taskList);
   }
-  moveItemInArray(list: any[], event: any, listName: string) {
+  moveItemInArray(taskList: any[], event: any) {
 
-    moveItemInArray(list, event.previousIndex, event.currentIndex);
-    sessionStorage[listName] = arrayHelper.saveToSession(list);
+    //FIXME 
+    moveItemInArray(taskList, event.previousIndex, event.currentIndex);
+    sessionStorage['taskList'] = arrayHelper.saveToSession(taskList);
   }
 }

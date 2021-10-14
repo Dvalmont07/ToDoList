@@ -7,11 +7,11 @@
       <h1>ToDo List</h1>
     </header>
     <input name="taskName" id="taskName" [(ngModel)]="taskName"
-      (keyup.enter)="addToDoTask({TaskName: taskName, Order: 0, Done: false, Today: false})" />
-    <input type="button" value="add" (click)="addToDoTask({TaskName: taskName, Order: 0, Done: false, Today: false})" />
+      (keyup.enter)="addTask({TaskName: taskName, Order: 0, Done: false, Today: false})" />
+    <input type="button" value="add" (click)="addTask({TaskName: taskName, Order: 0, Done: false, Today: false})" />
     <div>{{message}}</div>
     <div *ngIf="toDoTaskList.length > 0;  else emptyList" cdkDropList
-      (cdkDropListDropped)="drop(toDoTaskList, $event, toDoTaskName)" class="tasks-list">
+      (cdkDropListDropped)="drop(toDoTaskList, $event)" class="tasks-list">
       <div *ngFor="let task of toDoTaskList | multipleSearchFilter:['TaskName']:searchText; let index = index"
         class="task-box cursor-move" cdkDrag>
         <span class="cursor-pointer" *ngIf="activeLine!=index" (click)="activeLine=index"
@@ -21,7 +21,7 @@
           (keyup.enter)="renameTaskName({TaskName: taskNameEdited, Order: task.Order})" />
         <span *ngIf="activeLine!=index" title="mark as done" (click)="markAsDone(task)" class="cursor-pointer">
           *mark as done |</span>
-        <span class="cursor-pointer" (click)="openConfirmRemoveDialog(task,toDoTaskName)"> | REMOVE</span>
+        <span class="cursor-pointer" (click)="openConfirmRemoveDialog(task)"> | REMOVE</span>
         <span *ngIf="activeLine==index" title="ok"
           (click)="renameTaskName({TaskName: taskNameEdited, Order: task.Order})">
           *ok | </span>
@@ -36,7 +36,7 @@
       <h2>Done List</h2>
     </header>
     <div *ngIf="doneTaskList.length > 0; else emptyList" cdkDropList
-      (cdkDropListDropped)="drop(doneTaskList, $event, doneTaskName)" class="tasks-list">
+      (cdkDropListDropped)="drop(doneTaskList, $event)" class="tasks-list">
       <div *ngFor="let task of  doneTaskList | multipleSearchFilter:['TaskName']:searchText; let index = index"
         class="task-box cursor-move" cdkDrag>
         <div>
@@ -45,7 +45,7 @@
         <div>
           <span class="cursor-pointer" title="revert" (click)="revertDoneTask(task)" class="cursor-pointer">
             *revert</span>
-          <span class="cursor-pointer" (click)="openConfirmRemoveDialog(task,doneTaskName)"> | REMOVE</span>
+          <span class="cursor-pointer" (click)="openConfirmRemoveDialog(task)"> | REMOVE</span>
         </div>
       </div>
     </div>

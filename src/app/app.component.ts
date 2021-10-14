@@ -3,15 +3,23 @@ import { MyTask } from './interfaces/myTask';
 import { TasksService } from './services/tasks.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmDialogModalComponent } from './componets/confirm-dialog-modal/confirm-dialog-modal.component';
+import { Input, IterableDiffers, DoCheck } from '@angular/core';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, DoCheck {
 
-  constructor(private tasksService: TasksService, private dialog: MatDialog) { }
+  constructor(
+    private tasksService: TasksService,
+    private dialog: MatDialog,
+    differs: IterableDiffers) {
+    this.differ = differs.find([]).create(undefined);
+  }
+
 
   title = 'ToDoList';
   taskName: string = "";
@@ -19,62 +27,84 @@ export class AppComponent implements OnInit {
   activeLine: number = -1;
   searchText: string = "";
 
+  taskList: MyTask[] = [];
   toDoTaskList: MyTask[] = []
   doneTaskList: MyTask[] = []
 
-  readonly toDoTaskName: string = "toDoTaskList";
-  readonly doneTaskName: string = "doneTaskList";
+  // readonly toDoTaskName: string = "toDoTaskList";
+  // readonly doneTaskName: string = "doneTaskList";
   message: string = "";
+  differ: any;
 
   ngOnInit(): void {
+    this.getTaskList();
+  }
+
+  ngDoCheck(): void {
+    const change = this.differ.diff(this.taskList);
+console.log("Dooo",change);
+
     this.getToDoTaskList();
     this.getDoneTaskList();
   }
 
-  addToDoTask(task: MyTask) {
-    if (this.tasksService.add(this.toDoTaskName, task)) {
+  addTask(task: MyTask) {
+
+    if (this.tasksService.add(task)) {
       this.taskName = "";
       this.message = "";
     } else {
       this.message = "This field cannot be empty";
     }
   }
-  addDoneTask(task: MyTask) {
-    this.tasksService.add(this.doneTaskName, task);
+
+  removeTask(task: any): boolean {
+    return this.tasksService.remove(task);
+
   }
-  removeToDoTask(task: any): boolean {
-    return this.tasksService.remove(this.toDoTaskName, task);
-  }
-  removeDoneTask(task: any): boolean {
-    return this.tasksService.remove(this.doneTaskName, task);
-  }
+  // removeDoneTask(task: any): boolean {
+  //   return this.tasksService.remove(task);
+  // }
   markAsDone(task: any) {
-    if (this.removeToDoTask(task)) {
-      this.addDoneTask(task);
-    }
+    task.Done = true;
+    this.tasksService.update(task);
+    // this.getToDoTaskList();
+    // this.getDoneTaskList();
+    // if (this.removeToDoTask(task)) {
+    //   this.addDoneTask(task);
+    // }
   }
   revertDoneTask(task: any) {
-    if (this.removeDoneTask(task)) {
-      this.addToDoTask(task);
-    }
+    task.Done = false;
+    this.tasksService.update(task);
+    // this.getToDoTaskList();
+    // this.getDoneTaskList();
+    // if (this.removeDoneTask(task)) {
+    //   this.addToDoTask(task);
+    // }
   }
   renameTaskName(task: any) {
     if (task.TaskName == "") { return; }
-    this.tasksService.rename(this.toDoTaskName, task);
+    this.tasksService.rename(task);
     this.taskNameEdited = "";
     this.activeLine = -1;
   }
-  drop(list: any[], event: any, listName: string) {
+  drop(list: any[], event: any) {
+    this.tasksService.moveItemInArray(list, event);
+  }
 
-    this.tasksService.moveItemInArray(list, event, listName);
+  getTaskList() {
+    this.tasksService.get().subscribe(t => this.taskList = t);
   }
   getToDoTaskList() {
-    return this.tasksService.get(this.toDoTaskName).subscribe(t => this.toDoTaskList = t);
+    // return this.tasksService.getToDoTaskList().subscribe(t => this.toDoTaskList = t);
+    //return this.tasksService.get().subscribe(t => this.taskList = t);
+    this.toDoTaskList = this.taskList.filter(x => { return !x.Done })
   }
   getDoneTaskList() {
-    return this.tasksService.get(this.doneTaskName).subscribe(t => this.doneTaskList = t);
+    this.doneTaskList = this.taskList.filter(x => { return x.Done })
   }
-  openConfirmRemoveDialog(task: MyTask, listName: string) {
+  openConfirmRemoveDialog(task: MyTask) {
 
     const dialogConfig = new MatDialogConfig();
 
@@ -85,7 +115,7 @@ export class AppComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
-        this.tasksService.remove(listName, task);
+        this.tasksService.remove(task);
       }
     });
   }
