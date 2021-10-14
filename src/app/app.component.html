@@ -7,8 +7,8 @@
       <h1>ToDo List</h1>
     </header>
     <input name="taskName" id="taskName" [(ngModel)]="taskName"
-      (keyup.enter)="addToDoTask({TaskName: taskName, Order:0})" />
-    <input type="button" value="add" (click)="addToDoTask({TaskName: taskName, Order:0})" />
+      (keyup.enter)="addToDoTask({TaskName: taskName, Order: 0, Done: false, Today: false})" />
+    <input type="button" value="add" (click)="addToDoTask({TaskName: taskName, Order: 0, Done: false, Today: false})" />
     <div>{{message}}</div>
     <div *ngIf="toDoTaskList.length > 0;  else emptyList" cdkDropList
       (cdkDropListDropped)="drop(toDoTaskList, $event, toDoTaskName)" class="tasks-list">
