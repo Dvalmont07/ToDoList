@@ -15,4 +15,13 @@ export class arrayHelper {
         return JSON.parse(json);
     }
 
+    public static concatList(tempList: any[][], finalItemsList: any[]) {
+      tempList.forEach(item => {
+        if (item.length > 0) {
+          finalItemsList = finalItemsList.concat(item);
+        }
+      });
+      return finalItemsList;
+    }
+
 }
