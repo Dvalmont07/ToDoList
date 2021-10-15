@@ -10,9 +10,9 @@
       (keyup.enter)="addTask({TaskName: taskName, Order: 0, Done: false, Today: false})" />
     <input type="button" value="add" (click)="addTask({TaskName: taskName, Order: 0, Done: false, Today: false})" />
     <div>{{message}}</div>
-    <div *ngIf="toDoTaskList.length > 0;  else emptyList" cdkDropList
-      (cdkDropListDropped)="drop(toDoTaskList, $event)" class="tasks-list">
-      <div *ngFor="let task of toDoTaskList | multipleSearchFilter:['TaskName']:searchText; let index = index"
+    <div *ngIf="taskList.length > 0;  else emptyList" cdkDropList
+      (cdkDropListDropped)="drop(taskList, $event)" class="tasks-list">
+      <div *ngFor="let task of (taskList | boolFilter:['Done']:false | multipleSearchFilter:['TaskName']:searchText) ; let index = index; trackBy: trackTask"
         class="task-box cursor-move" cdkDrag>
         <span class="cursor-pointer" *ngIf="activeLine!=index" (click)="activeLine=index"
           title="click to edit">{{task.Order}} -
@@ -35,9 +35,9 @@
     <header>
       <h2>Done List</h2>
     </header>
-    <div *ngIf="doneTaskList.length > 0; else emptyList" cdkDropList
-      (cdkDropListDropped)="drop(doneTaskList, $event)" class="tasks-list">
-      <div *ngFor="let task of  doneTaskList | multipleSearchFilter:['TaskName']:searchText; let index = index"
+    <div *ngIf="taskList.length > 0; else emptyList" cdkDropList
+      (cdkDropListDropped)="drop(taskList, $event)" class="tasks-list">
+      <div *ngFor="let task of (taskList | boolFilter:['Done']:true | multipleSearchFilter:['TaskName']:searchText); let index = index"
         class="task-box cursor-move" cdkDrag>
         <div>
           <span class="done-task ">{{task.Order}} - {{task.TaskName}}</span>

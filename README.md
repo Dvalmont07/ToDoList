@@ -27,6 +27,7 @@ A simple ToDo List Project
 * dialog connfirmation box
 * change list by droping
 * add task steps
+* add Guid ids
 ### Done
 * ~addToDoTask~
 * ~addDoneTask~

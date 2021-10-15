@@ -12,12 +12,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConfirmDialogModalComponent } from './componets/confirm-dialog-modal/confirm-dialog-modal.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDividerModule } from '@angular/material/divider/';
+import { BoolFilterPipe } from './pipes/bool-filter.pipe';
 @NgModule({
   declarations: [
     AppComponent,
     MultipleSearchFilterPipe,
     FilterPipe,
     ConfirmDialogModalComponent,
+    BoolFilterPipe,
   ],
   imports: [
     BrowserModule,
@@ -31,6 +33,5 @@ import { MatDividerModule } from '@angular/material/divider/';
   ],
   providers: [],
   bootstrap: [AppComponent],
-
 })
-export class AppModule { }
+export class AppModule {}

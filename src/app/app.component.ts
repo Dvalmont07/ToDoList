@@ -9,31 +9,27 @@ import { Observable, of } from 'rxjs';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, DoCheck {
-
   constructor(
     private tasksService: TasksService,
     private dialog: MatDialog,
-    differs: IterableDiffers) {
+    differs: IterableDiffers
+  ) {
     this.differ = differs.find([]).create(undefined);
   }
 
-
   title = 'ToDoList';
-  taskName: string = "";
-  taskNameEdited: string = "";
+  taskName: string = '';
+  taskNameEdited: string = '';
   activeLine: number = -1;
-  searchText: string = "";
+  searchText: string = '';
 
   taskList: MyTask[] = [];
-  toDoTaskList: MyTask[] = []
-  doneTaskList: MyTask[] = []
-
-  // readonly toDoTaskName: string = "toDoTaskList";
-  // readonly doneTaskName: string = "doneTaskList";
-  message: string = "";
+  toDoTaskList: MyTask[] = [];
+  doneTaskList: MyTask[] = [];
+  message: string = '';
   differ: any;
 
   ngOnInit(): void {
@@ -42,25 +38,22 @@ export class AppComponent implements OnInit, DoCheck {
 
   ngDoCheck(): void {
     const change = this.differ.diff(this.taskList);
-console.log("Dooo",change);
-
-    this.getToDoTaskList();
-    this.getDoneTaskList();
+    this.getTaskList();
+    // this.getToDoTaskList();
+    // this.getDoneTaskList();
   }
 
   addTask(task: MyTask) {
-
     if (this.tasksService.add(task)) {
-      this.taskName = "";
-      this.message = "";
+      this.taskName = '';
+      this.message = '';
     } else {
-      this.message = "This field cannot be empty";
+      this.message = 'This field cannot be empty';
     }
   }
 
   removeTask(task: any): boolean {
     return this.tasksService.remove(task);
-
   }
   // removeDoneTask(task: any): boolean {
   //   return this.tasksService.remove(task);
@@ -77,16 +70,18 @@ console.log("Dooo",change);
   revertDoneTask(task: any) {
     task.Done = false;
     this.tasksService.update(task);
-    // this.getToDoTaskList();
-    // this.getDoneTaskList();
+    //  this.getToDoTaskList();
+    //  this.getDoneTaskList();
     // if (this.removeDoneTask(task)) {
     //   this.addToDoTask(task);
     // }
   }
   renameTaskName(task: any) {
-    if (task.TaskName == "") { return; }
+    if (task.TaskName == '') {
+      return;
+    }
     this.tasksService.rename(task);
-    this.taskNameEdited = "";
+    this.taskNameEdited = '';
     this.activeLine = -1;
   }
   drop(list: any[], event: any) {
@@ -94,31 +89,43 @@ console.log("Dooo",change);
   }
 
   getTaskList() {
-    this.tasksService.get().subscribe(t => this.taskList = t);
+    this.tasksService.get().subscribe((t) => (this.taskList = t));
   }
-  getToDoTaskList() {
-    // return this.tasksService.getToDoTaskList().subscribe(t => this.toDoTaskList = t);
-    //return this.tasksService.get().subscribe(t => this.taskList = t);
-    this.toDoTaskList = this.taskList.filter(x => { return !x.Done })
-  }
-  getDoneTaskList() {
-    this.doneTaskList = this.taskList.filter(x => { return x.Done })
-  }
+  // getToDoTaskList() {
+  //   // return this.tasksService.getToDoTaskList().subscribe(t => this.toDoTaskList = t);
+  //   //return this.tasksService.get().subscribe(t => this.taskList = t);
+  //   this.toDoTaskList = this.taskList.filter((x) => {
+  //     return !x.Done;
+  //   });
+  // }
+  // getDoneTaskList() {
+  //   this.doneTaskList = this.taskList.filter((x) => {
+  //     return x.Done;
+  //   });
+  // }
   openConfirmRemoveDialog(task: MyTask) {
-
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.data = { Title: "Remove Task", Message: 'Are you sure you want to remove this task?', Result: false }
-    const dialogRef = this.dialog.open(ConfirmDialogModalComponent, dialogConfig);
+    dialogConfig.data = {
+      Title: 'Remove Task',
+      Message: 'Are you sure you want to remove this task?',
+      Result: false,
+    };
+    const dialogRef = this.dialog.open(
+      ConfirmDialogModalComponent,
+      dialogConfig
+    );
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result === true) {
         this.tasksService.remove(task);
       }
     });
   }
+
+  trackTask(index:number, task:MyTask){
+    return task ? task.Order: undefined;
+  }
 }
-
-

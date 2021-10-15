@@ -17,12 +17,17 @@ export class TasksService implements EntityBase {
   update(task: MyTask): boolean {
     let bakpList: any[] = arrayHelper.clone(this.taskList);
 
+    console.log('bakpList',bakpList);
+
     this.taskList.forEach((value, index) => {
       if (value.Order === task.Order) {
         value.Done = task.Done;
       }
     });
     sessionStorage['taskList'] = arrayHelper.saveToSession(this.taskList);
+
+    console.log('this.taskList',this.taskList);
+
     return (bakpList !== this.taskList);
   }
 
@@ -70,7 +75,7 @@ export class TasksService implements EntityBase {
   }
   moveItemInArray(taskList: any[], event: any) {
 
-    //FIXME 
+    //FIXME
     moveItemInArray(taskList, event.previousIndex, event.currentIndex);
     sessionStorage['taskList'] = arrayHelper.saveToSession(taskList);
   }
