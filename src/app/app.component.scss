@@ -19,7 +19,8 @@
   background: $white;
 
   &.done-task {
-    background-color: $lightGrey;
+    //background-color: $lightGrey;
+    color: $lightGrey;
 
     .done {
       text-decoration: line-through;
