@@ -8,16 +8,16 @@ import { MyTask } from '../interfaces/myTask';
 })
 export class CategoriesService implements EntityBase {
   constructor() {}
-  add(tassk: MyTask): void {
+  add(item: any): void {
     throw new Error('Method not implemented.');
   }
-  remove(task: MyTask): void {
+  remove(item: any): void {
     throw new Error('Method not implemented.');
   }
-  update(task: MyTask): boolean {
+  update(item: any): boolean {
     throw new Error('Method not implemented.');
   }
-  get(): Observable<MyTask[]> {
+  get(): Observable<any[]> {
     throw new Error('Method not implemented.');
   }
 }
