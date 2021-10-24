@@ -31,10 +31,10 @@ A simple ToDo List Project
 - add task details
 - add message system (toasty)
 - chaqnge service response to (succes, error, complete)
-- category CRUD
-- category details
+- ICategory CRUD
+- ICategory details
 - removeategpy
-- editCategory
+- editICategory
 - sort array method
 
 
@@ -50,6 +50,6 @@ A simple ToDo List Project
 - ~to record data~
 - ~show modal mesages~
 - ~dialog connfirmation box~
-- ~add category of tasks~
-- ~getCategory~
--  ~Category Service~
+- ~add ICategory of tasks~
+- ~getICategory~
+-  ~ICategory Service~

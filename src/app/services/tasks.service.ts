@@ -2,30 +2,30 @@ import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { Injectable } from '@angular/core';
 import { Observable, of, Subscriber, Subscription } from 'rxjs';
 import { arrayHelper } from '../helper/arrayHelper';
-import { EntityBase } from '../interfaces/entityBase';
-import { MyTask } from '../interfaces/myTask';
+import { IBaseMethods } from '../interfaces/iBaseMethods';
+import { ITask } from '../interfaces/iTask';
 import { TODOTASKSLIST } from './mocks/TasksList';
 
 @Injectable({
   providedIn: 'root',
 })
-export class TasksService implements EntityBase<MyTask> {
+export class TasksService implements IBaseMethods<ITask> {
   taskList: any[] = [];
   // list: Record<string, Partial<any[]>> = {};
 
   constructor() { }
-  getById(): Observable<MyTask> {
+  getById(): Observable<ITask> {
     throw new Error('Method not implemented.');
   }
 
-  update(task: MyTask): Observable<boolean> {
+  update(task: ITask): Observable<boolean> {
     let bakpList: any[] = arrayHelper.clone(this.taskList);
     sessionStorage['taskList'] = arrayHelper.saveToSession(this.taskList);
 
     return of(bakpList !== this.taskList);
   }
 
-  add(task: MyTask): Observable<boolean> {
+  add(task: ITask): Observable<boolean> {
     if (task.TaskName) {
       task.Id = arrayHelper.getHighest(this.taskList, "Id");
       //task.Order = arrayHelper.getHighest(this.taskList, "Order"); //this.taskList.length > 0 ? Math.max(...this.taskList.map((x) => { return x.Order; })) + 1 : 1;
@@ -37,7 +37,7 @@ export class TasksService implements EntityBase<MyTask> {
   }
 
 
-  remove(task: MyTask): any {
+  remove(task: ITask): any {
     let bakpList: any[] = arrayHelper.clone(this.taskList);
     let sub = new Observable();
     this.taskList.forEach((value, index) => {
@@ -49,7 +49,7 @@ export class TasksService implements EntityBase<MyTask> {
 
     return (bakpList !== this.taskList);
   }
-  get(): Observable<MyTask[]> {
+  get(): Observable<ITask[]> {
     if (sessionStorage['taskList']) {
       this.taskList = arrayHelper.getFromSession(sessionStorage['taskList']);
     } else {
@@ -58,7 +58,7 @@ export class TasksService implements EntityBase<MyTask> {
     return of(this.taskList);
   }
 
-  // edit(task: MyTask) {
+  // edit(task: ITask) {
   //   this.taskList.some((element) => {
   //     if (element.Order == task.Order) {
   //       element.TaskName = task.TaskName;

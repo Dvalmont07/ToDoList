@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { MyTask } from './interfaces/myTask';
+import { ITask } from './interfaces/iTask';
 import { TasksService } from './services/tasks.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmDialogModalComponent } from './componets/confirm-dialog-modal/confirm-dialog-modal.component';
 import { CategoriesService } from './services/categories.service';
-import { Category } from './interfaces/category';
+import { ICategory } from './interfaces/iCategory';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
   constructor(
     private tasksService: TasksService,
     private dialog: MatDialog,
-    private categoriesService: CategoriesService,
+    private categoriesService: CategoriesService
   ) { }
 
   title = 'ToDoList';
@@ -23,11 +23,11 @@ export class AppComponent implements OnInit {
   activeLine: number = -1;
   searchText: string = '';
 
-  taskList: MyTask[] = [];
-  toDoTaskList: MyTask[] = [];
-  doneTaskList: MyTask[] = [];
-  categoriesList: Category[] = [];
-  selectedIdCategory: number = -1;
+  taskList: ITask[] = [];
+  toDoTaskList: ITask[] = [];
+  doneTaskList: ITask[] = [];
+  categoriesList: ICategory[] = [];
+  selectedIdICategory: number = -1;
   message: string = '';
   differ: any;
 
@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
     this.getTaskList();
     this.getCategoriesList();
   }
-  addTask(task: MyTask) {
+  addTask(task: ITask) {
     if (this.tasksService.add(task)) {
       this.taskName = '';
       this.message = '';
@@ -58,7 +58,7 @@ export class AppComponent implements OnInit {
     task.Done = false;
     this.tasksService.update(task);
   }
-  editTaskName(task: MyTask) {
+  editTaskName(task: ITask) {
     if (task.TaskName == '') {
       return;
     }
@@ -66,7 +66,7 @@ export class AppComponent implements OnInit {
     this.activeLine = -1;
   }
 
-  update(task: MyTask) {
+  update(task: ITask) {
 
     if (task) {
       this.tasksService.update(task);
@@ -84,7 +84,7 @@ export class AppComponent implements OnInit {
     this.categoriesService.get().subscribe((c) => (this.categoriesList = c));
   }
 
-  openConfirmRemoveDialog(task: MyTask) {
+  openConfirmRemoveDialog(task: ITask) {
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = true;
@@ -106,7 +106,7 @@ export class AppComponent implements OnInit {
     });
   }
 
-  trackTask(index: number, task: MyTask) {
+  trackTask(index: number, task: ITask) {
     return task ? task.Id : undefined;
   }
 }

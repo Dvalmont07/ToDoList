@@ -1,29 +1,29 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, Subscriber } from 'rxjs';
-import { Category } from '../interfaces/category';
-import { EntityBase } from '../interfaces/entityBase';
+import { ICategory } from '../interfaces/iCategory';
+import { IBaseMethods } from '../interfaces/iBaseMethods';
 import { CATEGORRIES } from './mocks/Categories';
 @Injectable({
   providedIn: 'root',
 })
-export class CategoriesService implements EntityBase<Category> {
-  categoryList: Category[] = [];
+export class CategoriesService implements IBaseMethods<ICategory> {
+  ICategoryList: ICategory[] = [];
 
   constructor() { }
-  getById(): Observable<Category> {
+  getById(): Observable<ICategory> {
     throw new Error('Method not implemented.');
   }
-  add(item: Category): Observable<boolean> {
+  add(item: ICategory): Observable<boolean> {
     throw new Error('Method not implemented.');
   }
-  remove(item: Category): Observable<boolean> {
+  remove(item: ICategory): Observable<boolean> {
     throw new Error('Method not implemented.');
   }
-  update(item: Category): Observable<boolean> {
+  update(item: ICategory): Observable<boolean> {
     throw new Error('Method not implemented.');
   }
 
-  get(): Observable<Category[]> {
-    return of((this.categoryList = CATEGORRIES));
+  get(): Observable<ICategory[]> {
+    return of((this.ICategoryList = CATEGORRIES));
   }
 }

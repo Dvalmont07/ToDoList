@@ -1,12 +1,12 @@
-import { Category } from "./category";
 
-export interface MyTask {
+import { IBaseEntity } from "./iBaseEntity";
+export interface ITask extends IBaseEntity {
   Id?: number;
   TaskName: string;
   //Order: number;
   Done: boolean;
   Today: boolean;
-  Category?: number
+  ICategory?: number
   //TODO  ScheduledTo?: boolean
   //TODO RepeatyType Enum [daily, weekdeays, weekly, monthly, annualy, custom ]
   //if custum
