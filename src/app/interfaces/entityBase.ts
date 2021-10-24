@@ -5,4 +5,5 @@ export interface EntityBase<Type> {
   remove(item: Type): Observable<any>;
   update(item: Type): Observable<boolean>;
   get(): Observable<Type[]>;
+  getById(): Observable<Type>;
 }
