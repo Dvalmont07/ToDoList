@@ -10,6 +10,9 @@ export class CategoriesService implements EntityBase<Category> {
   categoryList: Category[] = [];
 
   constructor() { }
+  getById(): Observable<Category> {
+    throw new Error('Method not implemented.');
+  }
   add(item: Category): Observable<boolean> {
     throw new Error('Method not implemented.');
   }

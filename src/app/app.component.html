@@ -15,7 +15,11 @@
                 <div [class.done]="task.Done">
                     <span class="cursor-pointer" *ngIf="activeLine!=index" (click)="activeLine=index" title="click to edit">{{task.Order}} -
             {{task.TaskName}} +++ {{task.Category}}</span>
-                    <input *ngIf="activeLine==index" type="text" [(ngModel)]="taskNameEdited" (keyup.enter)="renameTaskName({TaskName: taskNameEdited, Order: task.Order})" />
+                    <input *ngIf="activeLine==index" type="text" [(ngModel)]="task.TaskName" (keyup.enter)="editTaskName(task)" />
+                    <span *ngIf="activeLine==index" title="ok" (click)="editTaskName(task)">
+            *ok | </span>
+                    <span *ngIf="activeLine==index" title="cancel edit" (click)="activeLine=-1" class="cursor-pointer">
+            *cancel</span>
                 </div>
                 <div>
                     <mat-form-field appearance="fill">
@@ -34,10 +38,7 @@
                     <span *ngIf="task.Done" class="cursor-pointer" title="revert" (click)="revertDoneTask(task)" class="cursor-pointer">
             *revert</span>
                     <span class="cursor-pointer" (click)="openConfirmRemoveDialog(task)"> | REMOVE</span>
-                    <span *ngIf="activeLine==index" title="ok" (click)="renameTaskName({TaskName: taskNameEdited, Order: task.Order})">
-            *ok | </span>
-                    <span *ngIf="activeLine==index" title="cancel edit" (click)="activeLine=-1" class="cursor-pointer">
-            *cancel</span>
+
                 </div>
 
             </div>

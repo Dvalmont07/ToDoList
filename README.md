@@ -19,28 +19,28 @@ A simple ToDo List Project
 
 ### Ideas
 
-- add category of tasks
 - schedule task
 - make components
 - custom tooltips
 - add documentation
 - install Bootstrap
-- change list by droping
+- ~change list by droping~
 - add task steps
 - add Guid ids
 - add menu
-- add details
+- add task details
 - add message system (toasty)
-- chaqnge dservice response to (succes, error, complete)
+- chaqnge service response to (succes, error, complete)
+- category CRUD
+- category details
+- removeategpy
+- editCategory
+
 
 ### Done
 
-- ~addToDoTask~
-- ~addDoneTask~
-- ~removeTask~
-- ~removeDoneTask~
+- ~task CRUD~
 - ~markAsDone~
-- ~renameTaskName~
 - ~search task~
 - ~sort task list~
 - ~use custum pipe~
@@ -49,3 +49,6 @@ A simple ToDo List Project
 - ~to record data~
 - ~show modal mesages~
 - ~dialog connfirmation box~
+- ~add category of tasks~
+- ~getCategory~
+-  ~Category Service~

@@ -3,10 +3,8 @@ import { MyTask } from './interfaces/myTask';
 import { TasksService } from './services/tasks.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmDialogModalComponent } from './componets/confirm-dialog-modal/confirm-dialog-modal.component';
-import { IterableDiffers, DoCheck } from '@angular/core';
 import { CategoriesService } from './services/categories.service';
 import { Category } from './interfaces/category';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -18,14 +16,10 @@ export class AppComponent implements OnInit {
     private tasksService: TasksService,
     private dialog: MatDialog,
     private categoriesService: CategoriesService,
-    //differs: IterableDiffers
-  ) {
-    // this.differ = differs.find([]).create(undefined);
-  }
+  ) { }
 
   title = 'ToDoList';
   taskName: string = '';
-  taskNameEdited: string = '';
   activeLine: number = -1;
   searchText: string = '';
 
@@ -41,12 +35,6 @@ export class AppComponent implements OnInit {
     this.getTaskList();
     this.getCategoriesList();
   }
-
-  // ngDoCheck(): void {
-  //const change = this.differ.diff(this.taskList);
-  //this.getTaskList();
-  //}
-
   addTask(task: MyTask) {
     if (this.tasksService.add(task)) {
       this.taskName = '';
@@ -65,23 +53,20 @@ export class AppComponent implements OnInit {
   markAsDone(task: any) {
     task.Done = true;
     this.tasksService.update(task);
-
   }
   revertDoneTask(task: any) {
     task.Done = false;
     this.tasksService.update(task);
   }
-  renameTaskName(task: any) {
+  editTaskName(task: MyTask) {
     if (task.TaskName == '') {
       return;
     }
-    this.tasksService.rename(task);
-    this.taskNameEdited = '';
+    this.tasksService.update(task);
     this.activeLine = -1;
   }
 
   update(task: MyTask) {
-    console.log("task", task);
 
     if (task) {
       this.tasksService.update(task);
