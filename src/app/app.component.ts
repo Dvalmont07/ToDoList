@@ -3,8 +3,9 @@ import { MyTask } from './interfaces/myTask';
 import { TasksService } from './services/tasks.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmDialogModalComponent } from './componets/confirm-dialog-modal/confirm-dialog-modal.component';
-import { Input, IterableDiffers, DoCheck } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { IterableDiffers, DoCheck } from '@angular/core';
+import { CategoriesService } from './services/categories.service';
+import { Category } from './interfaces/category';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,7 @@ export class AppComponent implements OnInit, DoCheck {
   constructor(
     private tasksService: TasksService,
     private dialog: MatDialog,
+    private categoriesService: CategoriesService,
     differs: IterableDiffers
   ) {
     this.differ = differs.find([]).create(undefined);
@@ -29,6 +31,8 @@ export class AppComponent implements OnInit, DoCheck {
   taskList: MyTask[] = [];
   toDoTaskList: MyTask[] = [];
   doneTaskList: MyTask[] = [];
+  categoriesList: Category[] = [];
+  selectedIdCategory: number = -1;
   message: string = '';
   differ: any;
 
@@ -39,8 +43,6 @@ export class AppComponent implements OnInit, DoCheck {
   ngDoCheck(): void {
     const change = this.differ.diff(this.taskList);
     this.getTaskList();
-    // this.getToDoTaskList();
-    // this.getDoneTaskList();
   }
 
   addTask(task: MyTask) {
@@ -57,26 +59,15 @@ export class AppComponent implements OnInit, DoCheck {
       console.log('task removed');
     });
   }
-  // removeDoneTask(task: any): boolean {
-  //   return this.tasksService.remove(task);
-  // }
+
   markAsDone(task: any) {
     task.Done = true;
     this.tasksService.update(task);
-    // this.getToDoTaskList();
-    // this.getDoneTaskList();
-    // if (this.removeToDoTask(task)) {
-    //   this.addDoneTask(task);
-    // }
+
   }
   revertDoneTask(task: any) {
     task.Done = false;
     this.tasksService.update(task);
-    //  this.getToDoTaskList();
-    //  this.getDoneTaskList();
-    // if (this.removeDoneTask(task)) {
-    //   this.addToDoTask(task);
-    // }
   }
   renameTaskName(task: any) {
     if (task.TaskName == '') {
@@ -93,18 +84,7 @@ export class AppComponent implements OnInit, DoCheck {
   getTaskList() {
     this.tasksService.get().subscribe((t) => (this.taskList = t));
   }
-  // getToDoTaskList() {
-  //   // return this.tasksService.getToDoTaskList().subscribe(t => this.toDoTaskList = t);
-  //   //return this.tasksService.get().subscribe(t => this.taskList = t);
-  //   this.toDoTaskList = this.taskList.filter((x) => {
-  //     return !x.Done;
-  //   });
-  // }
-  // getDoneTaskList() {
-  //   this.doneTaskList = this.taskList.filter((x) => {
-  //     return x.Done;
-  //   });
-  // }
+
   openConfirmRemoveDialog(task: MyTask) {
     const dialogConfig = new MatDialogConfig();
 
