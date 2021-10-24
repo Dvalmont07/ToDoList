@@ -4,6 +4,7 @@ export interface MyTask {
   Order: number;
   Done: boolean;
   Today: boolean;
+  //TODO  Category?: boolean
   //TODO  ScheduledTo?: boolean
   //TODO RepeatyType Enum [daily, weekdeays, weekly, monthly, annualy, custom ]
   //if custum

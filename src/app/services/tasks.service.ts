@@ -1,23 +1,24 @@
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscriber, Subscription } from 'rxjs';
 import { arrayHelper } from '../helper/arrayHelper';
 import { EntityBase } from '../interfaces/entityBase';
 import { MyTask } from '../interfaces/myTask';
+import { TODOTASKSLIST } from './mocks/TasksList';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class TasksService implements EntityBase {
-
+export class TasksService implements EntityBase<MyTask> {
   taskList: any[] = [];
   // list: Record<string, Partial<any[]>> = {};
 
   constructor() { }
-  update(task: MyTask): boolean {
+
+  update(task: MyTask): Observable<boolean> {
     let bakpList: any[] = arrayHelper.clone(this.taskList);
 
-    console.log('bakpList',bakpList);
+    console.log('bakpList', bakpList);
 
     this.taskList.forEach((value, index) => {
       if (value.Order === task.Order) {
@@ -26,56 +27,58 @@ export class TasksService implements EntityBase {
     });
     sessionStorage['taskList'] = arrayHelper.saveToSession(this.taskList);
 
-    console.log('this.taskList',this.taskList);
+    console.log('this.taskList', this.taskList);
 
-    return (bakpList !== this.taskList);
+    return of(bakpList !== this.taskList);
   }
 
-  add(task: MyTask): boolean {
-        if (task.TaskName) {
-      task.Order = this.taskList.length > 0 ? Math.max(... this.taskList.map(x => { return x.Order })) + 1 : 1;
+  add(task: MyTask): Observable<boolean> {
+    if (task.TaskName) {
+      task.Order =
+        this.taskList.length > 0
+          ? Math.max(
+            ...this.taskList.map((x) => {
+              return x.Order;
+            })
+          ) + 1
+          : 1;
       this.taskList.push(task);
       sessionStorage['taskList'] = arrayHelper.saveToSession(this.taskList);
-      return true;
+      return of(true);
     }
-    return false;
+    return of(false);
   }
-  remove(task: MyTask): boolean {
-
+  remove(task: MyTask): any {
     let bakpList: any[] = arrayHelper.clone(this.taskList);
-
+    let sub = new Observable();
     this.taskList.forEach((value, index) => {
       if (value.Order === task.Order) {
         this.taskList.splice(index, 1);
       }
     });
     sessionStorage['taskList'] = arrayHelper.saveToSession(this.taskList);
+
     return (bakpList !== this.taskList);
   }
   get(): Observable<MyTask[]> {
-
     if (sessionStorage['taskList']) {
       this.taskList = arrayHelper.getFromSession(sessionStorage['taskList']);
     } else {
-      this.taskList = [];
+      this.taskList = TODOTASKSLIST;
     }
-
     return of(this.taskList);
   }
 
   rename(task: MyTask) {
-
-    this.taskList.some(element => {
+    this.taskList.some((element) => {
       if (element.Order == task.Order) {
-        element.TaskName = task.TaskName
+        element.TaskName = task.TaskName;
       }
     });
 
     sessionStorage['taskList'] = arrayHelper.saveToSession(this.taskList);
   }
   moveItemInArray(taskList: any[], event: any) {
-
-    //FIXME
     moveItemInArray(taskList, event.previousIndex, event.currentIndex);
     sessionStorage['taskList'] = arrayHelper.saveToSession(taskList);
   }

@@ -52,8 +52,10 @@ export class AppComponent implements OnInit, DoCheck {
     }
   }
 
-  removeTask(task: any): boolean {
-    return this.tasksService.remove(task);
+  removeTask(task: any): void {
+    this.tasksService.remove(task).add(() => {
+      console.log('task removed');
+    });
   }
   // removeDoneTask(task: any): boolean {
   //   return this.tasksService.remove(task);
@@ -125,7 +127,7 @@ export class AppComponent implements OnInit, DoCheck {
     });
   }
 
-  trackTask(index:number, task:MyTask){
-    return task ? task.Order: undefined;
+  trackTask(index: number, task: MyTask) {
+    return task ? task.Order : undefined;
   }
 }
