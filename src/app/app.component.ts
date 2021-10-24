@@ -6,20 +6,21 @@ import { ConfirmDialogModalComponent } from './componets/confirm-dialog-modal/co
 import { IterableDiffers, DoCheck } from '@angular/core';
 import { CategoriesService } from './services/categories.service';
 import { Category } from './interfaces/category';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit, DoCheck {
+export class AppComponent implements OnInit {
   constructor(
     private tasksService: TasksService,
     private dialog: MatDialog,
     private categoriesService: CategoriesService,
-    differs: IterableDiffers
+    //differs: IterableDiffers
   ) {
-    this.differ = differs.find([]).create(undefined);
+    // this.differ = differs.find([]).create(undefined);
   }
 
   title = 'ToDoList';
@@ -38,12 +39,13 @@ export class AppComponent implements OnInit, DoCheck {
 
   ngOnInit(): void {
     this.getTaskList();
+    this.getCategoriesList();
   }
 
-  ngDoCheck(): void {
-    const change = this.differ.diff(this.taskList);
-    this.getTaskList();
-  }
+  // ngDoCheck(): void {
+  //const change = this.differ.diff(this.taskList);
+  //this.getTaskList();
+  //}
 
   addTask(task: MyTask) {
     if (this.tasksService.add(task)) {
@@ -83,6 +85,10 @@ export class AppComponent implements OnInit, DoCheck {
 
   getTaskList() {
     this.tasksService.get().subscribe((t) => (this.taskList = t));
+  }
+
+  getCategoriesList() {
+    this.categoriesService.get().subscribe((c) => (this.categoriesList = c));
   }
 
   openConfirmRemoveDialog(task: MyTask) {

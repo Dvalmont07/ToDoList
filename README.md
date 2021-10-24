@@ -31,6 +31,7 @@ A simple ToDo List Project
 - add menu
 - add details
 - add message system (toasty)
+- chaqnge dservice response to (succes, error, complete)
 
 ### Done
 

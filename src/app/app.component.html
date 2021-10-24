@@ -1,85 +1,44 @@
 <section id="tasksContainer" class="tasks-container">
-  <section id="inputSearchSection">
-    <input id="txtSearch" name="txtSearch" type="search" [(ngModel)]="searchText" />
-  </section>
-  <section id="toDoTaskList" class="todo-task-list">
-    <header class="my-2">
-      <h1>ToDo List</h1>
-    </header>
-    <input name="taskName" id="taskName" [(ngModel)]="taskName"
-      (keyup.enter)="addTask({TaskName: taskName, Order: 0, Done: false, Today: false})" />
-    <input type="button" value="add" (click)="addTask({TaskName: taskName, Order: 0, Done: false, Today: false})" />
-    <div>{{message}}</div>
-    <div *ngIf="taskList.length > 0;  else emptyList" cdkDropList (cdkDropListDropped)="drop(taskList, $event)"
-      class="tasks-list">
-      <div
-        *ngFor="let task of taskList | multipleSearchFilter:['TaskName']:searchText ; let index = index; trackBy: trackTask"
-        class="task-box cursor-move" [class.done-task]="task.Done" cdkDrag>
+    <section id="inputSearchSection">
+        <input id="txtSearch" name="txtSearch" type="search" [(ngModel)]="searchText" />
+    </section>
+    <section id="toDoTaskList" class="todo-task-list">
+        <header class="my-2">
+            <h1>ToDo List</h1>
+        </header>
+        <input name="taskName" id="taskName" [(ngModel)]="taskName" (keyup.enter)="addTask({TaskName: taskName, Order: 0, Done: false, Today: false})" />
+        <input type="button" value="add" (click)="addTask({TaskName: taskName, Order: 0, Done: false, Today: false})" />
+        <div>{{message}}</div>
+        <div *ngIf="taskList.length > 0;  else emptyList" cdkDropList (cdkDropListDropped)="drop(taskList, $event)" class="tasks-list">
+            <div *ngFor="let task of taskList | multipleSearchFilter:['TaskName']:searchText ; let index = index; trackBy: trackTask" class="task-box cursor-move" [class.done-task]="task.Done" cdkDrag>
 
-        <div [class.done]="task.Done">
-          <span class="cursor-pointer" *ngIf="activeLine!=index" (click)="activeLine=index"
-            title="click to edit">{{task.Order}} -
+                <div [class.done]="task.Done">
+                    <span class="cursor-pointer" *ngIf="activeLine!=index" (click)="activeLine=index" title="click to edit">{{task.Order}} -
             {{task.TaskName}}</span>
-          <input *ngIf="activeLine==index" type="text" [(ngModel)]="taskNameEdited"
-            (keyup.enter)="renameTaskName({TaskName: taskNameEdited, Order: task.Order})" />
-        </div>
-        <div>
-          <span *ngIf="activeLine!=index && !task.Done" title="mark as done" (click)="markAsDone(task)"
-            class="cursor-pointer">
+                    <input *ngIf="activeLine==index" type="text" [(ngModel)]="taskNameEdited" (keyup.enter)="renameTaskName({TaskName: taskNameEdited, Order: task.Order})" />
+                </div>
+                <div>
+                    <span *ngIf="activeLine!=index && !task.Done" title="mark as done" (click)="markAsDone(task)" class="cursor-pointer">
             *mark as done |</span>
-          <span *ngIf="task.Done" class="cursor-pointer" title="revert" (click)="revertDoneTask(task)"
-            class="cursor-pointer">
+                    <span *ngIf="task.Done" class="cursor-pointer" title="revert" (click)="revertDoneTask(task)" class="cursor-pointer">
             *revert</span>
-          <span class="cursor-pointer" (click)="openConfirmRemoveDialog(task)"> | REMOVE</span>
-          <span *ngIf="activeLine==index" title="ok"
-            (click)="renameTaskName({TaskName: taskNameEdited, Order: task.Order})">
+                    <span class="cursor-pointer" (click)="openConfirmRemoveDialog(task)"> | REMOVE</span>
+                    <span *ngIf="activeLine==index" title="ok" (click)="renameTaskName({TaskName: taskNameEdited, Order: task.Order})">
             *ok | </span>
-          <span *ngIf="activeLine==index" title="cancel edit" (click)="activeLine=-1" class="cursor-pointer">
+                    <span *ngIf="activeLine==index" title="cancel edit" (click)="activeLine=-1" class="cursor-pointer">
             *cancel</span>
-        </div>
+                </div>
 
-        <!-- <span class="cursor-pointer" *ngIf="activeLine!=index" (click)="activeLine=index"
-          title="click to edit">{{task.Order}} -
-          {{task.TaskName}}</span>
-        <input *ngIf="activeLine==index" type="text" [(ngModel)]="taskNameEdited"
-          (keyup.enter)="renameTaskName({TaskName: taskNameEdited, Order: task.Order})" />
-        <span *ngIf="activeLine!=index" title="mark as done" (click)="markAsDone(task)" class="cursor-pointer">
-          *mark as done |</span>
-        <span class="cursor-pointer" (click)="openConfirmRemoveDialog(task)"> | REMOVE</span>
-        <span *ngIf="activeLine==index" title="ok"
-          (click)="renameTaskName({TaskName: taskNameEdited, Order: task.Order})">
-          *ok | </span>
-        <span *ngIf="activeLine==index" title="cancel edit" (click)="activeLine=-1" class="cursor-pointer">
-          *cancel</span> -->
-      </div>
-    </div>
-  </section>
-  <mat-divider></mat-divider>
-  <!-- <section id="doneTaskList" class="done-task-list" cdkDropListGroup>
-    <header>
-      <h2>Done List</h2>
-    </header>
-    <div *ngIf="taskList.length > 0; else emptyList" cdkDropList
-      (cdkDropListDropped)="drop(taskList, $event)" class="tasks-list">
-      <div *ngFor="let task of (taskList | boolFilter:['Done']:true | multipleSearchFilter:['TaskName']:searchText); let index = index"
-        class="task-box cursor-move" cdkDrag>
-        <div>
-          <span class="done-task ">{{task.Order}} - {{task.TaskName}}</span>
+            </div>
         </div>
-        <div>
-          <span class="cursor-pointer" title="revert" (click)="revertDoneTask(task)" class="cursor-pointer">
-            *revert</span>
-          <span class="cursor-pointer" (click)="openConfirmRemoveDialog(task)"> | REMOVE</span>
-        </div>
-      </div>
-    </div>
-  </section>
-</section> -->
-  <!-- Templates -->
-  <ng-template #emptyList>
-    <div>There's no tasks to be shown</div>
-  </ng-template>
-  <!-- Modals -->
-  <section #modalMessage class="modal-message">
-    <div class="modal-message-box">message</div>
-  </section>
+    </section>
+    <mat-divider></mat-divider>
+
+    <!-- Templates -->
+    <ng-template #emptyList>
+        <div>There's no tasks to be shown</div>
+    </ng-template>
+    <!-- Modals -->
+    <section #modalMessage class="modal-message">
+        <div class="modal-message-box">message</div>
+    </section>
