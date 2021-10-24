@@ -35,6 +35,7 @@ A simple ToDo List Project
 - category details
 - removeategpy
 - editCategory
+- sort array method
 
 
 ### Done
