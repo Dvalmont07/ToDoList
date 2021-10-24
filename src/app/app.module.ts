@@ -13,6 +13,7 @@ import { ConfirmDialogModalComponent } from './componets/confirm-dialog-modal/co
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDividerModule } from '@angular/material/divider/';
 import { BoolFilterPipe } from './pipes/bool-filter.pipe';
+import { MatSelectModule } from '@angular/material/select';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,8 +31,9 @@ import { BoolFilterPipe } from './pipes/bool-filter.pipe';
     BrowserAnimationsModule,
     MatFormFieldModule,
     MatDividerModule,
+    MatSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

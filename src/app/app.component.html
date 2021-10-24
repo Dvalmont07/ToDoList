@@ -14,8 +14,19 @@
 
                 <div [class.done]="task.Done">
                     <span class="cursor-pointer" *ngIf="activeLine!=index" (click)="activeLine=index" title="click to edit">{{task.Order}} -
-            {{task.TaskName}}</span>
+            {{task.TaskName}} +++ {{task.Category}}</span>
                     <input *ngIf="activeLine==index" type="text" [(ngModel)]="taskNameEdited" (keyup.enter)="renameTaskName({TaskName: taskNameEdited, Order: task.Order})" />
+                </div>
+                <div>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Category</mat-label>
+                        <mat-select [(value)]="task.Category" (selectionChange)="update(task)">
+                            <mat-option [value]="-1">None</mat-option>
+                            <mat-option *ngFor="let category of categoriesList" [value]="category.Id">
+                                {{category.Name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
                 </div>
                 <div>
                     <span *ngIf="activeLine!=index && !task.Done" title="mark as done" (click)="markAsDone(task)" class="cursor-pointer">

@@ -18,16 +18,13 @@ export class TasksService implements EntityBase<MyTask> {
   update(task: MyTask): Observable<boolean> {
     let bakpList: any[] = arrayHelper.clone(this.taskList);
 
-    console.log('bakpList', bakpList);
-
-    this.taskList.forEach((value, index) => {
-      if (value.Order === task.Order) {
-        value.Done = task.Done;
-      }
-    });
+    // this.taskList.forEach((value, index) => {
+    //   if (value.Order === task.Order) {
+    //     value.Done = task.Done;
+    //     value.Category = task.Category;
+    //   }
+    // });
     sessionStorage['taskList'] = arrayHelper.saveToSession(this.taskList);
-
-    console.log('this.taskList', this.taskList);
 
     return of(bakpList !== this.taskList);
   }

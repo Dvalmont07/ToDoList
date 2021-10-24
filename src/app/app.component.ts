@@ -79,6 +79,14 @@ export class AppComponent implements OnInit {
     this.taskNameEdited = '';
     this.activeLine = -1;
   }
+
+  update(task: MyTask) {
+    console.log("task", task);
+
+    if (task) {
+      this.tasksService.update(task);
+    }
+  }
   drop(list: any[], event: any) {
     this.tasksService.moveItemInArray(list, event);
   }
