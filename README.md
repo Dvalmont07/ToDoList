@@ -30,7 +30,7 @@ A simple ToDo List Project
 - add Guid ids
 - add menu
 - add details
-- add message system
+- add message system (toasty)
 
 ### Done
 
