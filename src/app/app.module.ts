@@ -7,13 +7,18 @@ import { AppComponent } from './app.component';
 import { MultipleSearchFilterPipe } from './pipes/multiple-search-filter.pipe';
 import { FilterPipe } from './pipes/filter.pipe';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { MatDialogModule } from '@angular/material/dialog';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConfirmDialogModalComponent } from './componets/confirm-dialog-modal/confirm-dialog-modal.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDividerModule } from '@angular/material/divider/';
 import { BoolFilterPipe } from './pipes/bool-filter.pipe';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDialogModule } from '@angular/material/dialog';
+
+//pages
+import { TasksListComponent } from './pages/tasks/tasksList/tasksList.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,6 +26,7 @@ import { MatSelectModule } from '@angular/material/select';
     FilterPipe,
     ConfirmDialogModalComponent,
     BoolFilterPipe,
+    TasksListComponent
   ],
   imports: [
     BrowserModule,
@@ -32,6 +38,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatFormFieldModule,
     MatDividerModule,
     MatSelectModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent],
