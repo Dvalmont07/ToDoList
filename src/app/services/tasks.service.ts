@@ -28,13 +28,9 @@ export class TasksService implements EntityBase<MyTask> {
   add(task: MyTask): Observable<boolean> {
     if (task.TaskName) {
       task.Id = arrayHelper.getHighest(this.taskList, "Id");
-      task.Order = arrayHelper.getHighest(this.taskList, "Order"); //this.taskList.length > 0 ? Math.max(...this.taskList.map((x) => { return x.Order; })) + 1 : 1;
+      //task.Order = arrayHelper.getHighest(this.taskList, "Order"); //this.taskList.length > 0 ? Math.max(...this.taskList.map((x) => { return x.Order; })) + 1 : 1;
       this.taskList.push(task);
       sessionStorage['taskList'] = arrayHelper.saveToSession(this.taskList);
-
-      console.log("this.taskList", this.taskList);
-      console.log("this.task.Id", task.Id);
-
       return of(true);
     }
     return of(false);
@@ -45,7 +41,7 @@ export class TasksService implements EntityBase<MyTask> {
     let bakpList: any[] = arrayHelper.clone(this.taskList);
     let sub = new Observable();
     this.taskList.forEach((value, index) => {
-      if (value.Order === task.Order) {
+      if (value.Id === task.Id) {
         this.taskList.splice(index, 1);
       }
     });

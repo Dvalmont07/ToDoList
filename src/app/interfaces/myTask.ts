@@ -3,7 +3,7 @@ import { Category } from "./category";
 export interface MyTask {
   Id?: number;
   TaskName: string;
-  Order: number;
+  //Order: number;
   Done: boolean;
   Today: boolean;
   Category?: number

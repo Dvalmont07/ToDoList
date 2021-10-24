@@ -107,6 +107,6 @@ export class AppComponent implements OnInit {
   }
 
   trackTask(index: number, task: MyTask) {
-    return task ? task.Order : undefined;
+    return task ? task.Id : undefined;
   }
 }
