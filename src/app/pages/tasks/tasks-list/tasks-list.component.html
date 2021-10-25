@@ -13,7 +13,7 @@
             <div *ngFor="let task of taskList | multipleSearchFilter:['TaskName']:searchText ; let index = index; trackBy: trackTask" class="task-box cursor-move" [class.done-task]="task.Done" cdkDrag>
 
                 <div [class.done]="task.Done">
-                    <span class="cursor-pointer" *ngIf="activeLine!=index" (click)="activeLine=index" title="click to edit">{{task.Id}} -
+                    <span class="cursor-pointer" *ngIf="activeLine!=index" (click)="activeLine=index; openDetailsDialog(task);" title="click to edit">{{task.Id}} -
             {{task.TaskName}} +++ {{task.ICategory}}</span>
                     <input *ngIf="activeLine==index" type="text" [(ngModel)]="task.TaskName" (keyup.enter)="editTaskName(task)" />
                     <span *ngIf="activeLine==index" title="ok" (click)="editTaskName(task)">

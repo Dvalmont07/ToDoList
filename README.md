@@ -36,6 +36,8 @@ A simple ToDo List Project
 - removeategpy
 - editICategory
 - sort array method
+- favorite
+- single page application
 
 
 ### Done

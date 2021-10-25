@@ -5,11 +5,12 @@ import { ICategory } from 'src/app/interfaces/iCategory';
 import { ITask } from 'src/app/interfaces/iTask';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { TasksService } from 'src/app/services/tasks.service';
+import { TaskDetailsComponent } from '../task-details/task-details.component';
 
 @Component({
-  selector: 'app-tasksList',
-  templateUrl: './tasksList.component.html',
-  styleUrls: ['./tasksList.component.scss']
+  selector: 'app-tasks-list',
+  templateUrl: './tasks-list.component.html',
+  styleUrls: ['./tasks-list.component.scss']
 })
 export class TasksListComponent implements OnInit, OnDestroy {
 
@@ -88,6 +89,11 @@ export class TasksListComponent implements OnInit, OnDestroy {
     this.categoriesService.get().subscribe((c) => (this.categoriesList = c));
   }
 
+  trackTask(index: number, task: ITask) {
+    return task ? task.Id : undefined;
+  }
+
+  //Dialogs
   openConfirmRemoveDialog(task: ITask) {
     const dialogConfig = new MatDialogConfig();
 
@@ -110,8 +116,27 @@ export class TasksListComponent implements OnInit, OnDestroy {
     });
   }
 
-  trackTask(index: number, task: ITask) {
-    return task ? task.Id : undefined;
+  openDetailsDialog(task: ITask) {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = {
+      Title: 'Task Detailsx',
+      Message: '',
+      Result: false,
+      Id: task.Id
+    };
+    const dialogRef = this.dialog.open(
+      TaskDetailsComponent,
+      dialogConfig
+    );
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === true) {
+        this.tasksService.remove(task);
+      }
+    });
   }
 
 }

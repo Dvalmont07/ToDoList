@@ -1,5 +1,5 @@
 import { moveItemInArray } from '@angular/cdk/drag-drop';
-import { Injectable } from '@angular/core';
+import { Injectable, Type } from '@angular/core';
 import { Observable, of, Subscriber, Subscription } from 'rxjs';
 import { arrayHelper } from '../helper/arrayHelper';
 import { IBaseMethods } from '../interfaces/iBaseMethods';
@@ -14,9 +14,6 @@ export class TasksService implements IBaseMethods<ITask> {
   // list: Record<string, Partial<any[]>> = {};
 
   constructor() { }
-  getById(): Observable<ITask> {
-    throw new Error('Method not implemented.');
-  }
 
   update(task: ITask): Observable<boolean> {
     let bakpList: any[] = arrayHelper.clone(this.taskList);
@@ -28,7 +25,6 @@ export class TasksService implements IBaseMethods<ITask> {
   add(task: ITask): Observable<boolean> {
     if (task.TaskName) {
       task.Id = arrayHelper.getHighest(this.taskList, "Id");
-      //task.Order = arrayHelper.getHighest(this.taskList, "Order"); //this.taskList.length > 0 ? Math.max(...this.taskList.map((x) => { return x.Order; })) + 1 : 1;
       this.taskList.push(task);
       sessionStorage['taskList'] = arrayHelper.saveToSession(this.taskList);
       return of(true);
@@ -57,16 +53,14 @@ export class TasksService implements IBaseMethods<ITask> {
     }
     return of(this.taskList);
   }
+  // oootask: ITask[] = [];//{ TaskName: '', Done: false, Today: false };
 
-  // edit(task: ITask) {
-  //   this.taskList.some((element) => {
-  //     if (element.Order == task.Order) {
-  //       element.TaskName = task.TaskName;
-  //     }
-  //   });
+  getById(idTask: number): Observable<ITask> {
+    let task: ITask[] = [];
+    this.get().subscribe(t => task = t.filter(x => x.Id == idTask));
+    return of(task[0]);
+  }
 
-  //   sessionStorage['taskList'] = arrayHelper.saveToSession(this.taskList);
-  // }
   moveItemInArray(taskList: any[], event: any) {
     let originalList = arrayHelper.clone(taskList);
     moveItemInArray(taskList, event.previousIndex, event.currentIndex);

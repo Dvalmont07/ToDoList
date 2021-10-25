@@ -9,15 +9,19 @@ import { FilterPipe } from './pipes/filter.pipe';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ConfirmDialogModalComponent } from './componets/confirm-dialog-modal/confirm-dialog-modal.component';
+
+//Material
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDividerModule } from '@angular/material/divider/';
 import { BoolFilterPipe } from './pipes/bool-filter.pipe';
 import { MatSelectModule } from '@angular/material/select';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 //pages
-import { TasksListComponent } from './pages/tasks/tasksList/tasksList.component';
+import { ConfirmDialogModalComponent } from './componets/confirm-dialog-modal/confirm-dialog-modal.component';
+import { TasksListComponent } from './pages/tasks/tasks-list/tasks-list.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { TaskDetailsComponent } from './pages/tasks/task-details/task-details.component';
 
 @NgModule({
   declarations: [
@@ -26,21 +30,24 @@ import { TasksListComponent } from './pages/tasks/tasksList/tasksList.component'
     FilterPipe,
     ConfirmDialogModalComponent,
     BoolFilterPipe,
-    TasksListComponent
+    TasksListComponent,
+    TaskDetailsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    MatDialogModule,
     FormsModule,
     DragDropModule,
-    MatDialogModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
     MatDividerModule,
     MatSelectModule,
+    MatButtonModule,
 
   ],
   providers: [],
   bootstrap: [AppComponent],
+
 })
 export class AppModule { }
