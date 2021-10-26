@@ -16,6 +16,7 @@ import { MatDividerModule } from '@angular/material/divider/';
 import { BoolFilterPipe } from './pipes/bool-filter.pipe';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 //pages
 import { ConfirmDialogModalComponent } from './componets/confirm-dialog-modal/confirm-dialog-modal.component';
@@ -44,6 +45,7 @@ import { TaskDetailsComponent } from './pages/tasks/task-details/task-details.co
     MatDividerModule,
     MatSelectModule,
     MatButtonModule,
+    MatCheckboxModule
 
   ],
   providers: [],

@@ -21,16 +21,13 @@
         class="task-box cursor-move" [class.done-task]="task.Done" cdkDrag>
 
         <section id=" buttons" class="d-flex">
-          <span *ngIf="activeLine!=index && !task.Done" title="mark as done" (click)="markAsDone(task)"
-            class="cursor-pointer">
-            *mark as done |</span>
-          <span *ngIf="task.Done" class="cursor-pointer" title="revert" (click)="revertDoneTask(task)"
-            class="cursor-pointer">
-            *revert |</span>
+
+          <mat-checkbox [(ngModel)]="task.Done"></mat-checkbox>
 
           <div [class.done]="task.Done">
 
-            <span class="cursor-pointer" (click)="openDetailsDialog(task);" title="click to edit">{{task.Id}} -
+            <span class="cursor-pointer" (click)="openDetailsDialog(task);" title="click to edit"> &nbsp;{{task.Id}}
+              -
               {{task.TaskName}} +++ {{task.category}}</span>
 
           </div>
