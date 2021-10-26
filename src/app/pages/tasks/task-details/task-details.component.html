@@ -5,7 +5,10 @@
       <h3 class="flex-grow-1">{{taskValue.TaskName}}</h3>
       <div>Favorite</div>
     </section>
-    <div>Add to 'my day' </div>
+    <div><span></span>
+      <mat-slide-toggle [(ngModel)]="taskValue.Today" class="example-margin" color="red">Add to 'my day'
+      </mat-slide-toggle>
+    </div>
     <div>Remember me [options-> calendar]</div>
     <div>Schedulle [options-> calendar]</div>
     <div>Repeat [options-> calendar]</div>
