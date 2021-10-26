@@ -6,7 +6,7 @@ export interface ITask extends IBaseEntity {
   //Order: number;
   Done: boolean;
   Today: boolean;
-  ICategory?: number
+  Category?: number
   //TODO  ScheduledTo?: boolean
   //TODO RepeatyType Enum [daily, weekdeays, weekly, monthly, annualy, custom ]
   //if custum

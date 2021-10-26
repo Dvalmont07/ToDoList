@@ -7,7 +7,7 @@ import { CATEGORRIES } from './mocks/Categories';
   providedIn: 'root',
 })
 export class CategoriesService implements IBaseMethods<ICategory> {
-  ICategoryList: ICategory[] = [];
+  categoryList: ICategory[] = [];
 
   constructor() { }
   getById(): Observable<ICategory> {
@@ -24,6 +24,6 @@ export class CategoriesService implements IBaseMethods<ICategory> {
   }
 
   get(): Observable<ICategory[]> {
-    return of((this.ICategoryList = CATEGORRIES));
+    return of((this.categoryList = CATEGORRIES));
   }
 }

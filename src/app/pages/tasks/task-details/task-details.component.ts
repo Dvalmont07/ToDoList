@@ -1,6 +1,6 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DialogData } from 'src/app/interfaces/DialogData';
+import { IDialogData } from 'src/app/interfaces/iDialogData';
 import { ITask } from 'src/app/interfaces/iTask';
 import { TasksService } from 'src/app/services/tasks.service';
 
@@ -19,7 +19,7 @@ export class TaskDetailsComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<TaskDetailsComponent>,
     private taskService: TasksService,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
+    @Inject(MAT_DIALOG_DATA) public data: IDialogData) { }
 
   @Input() idTask: any;
 
