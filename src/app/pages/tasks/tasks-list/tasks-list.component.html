@@ -22,26 +22,15 @@
 
         <section id=" buttons" class="d-flex">
 
-          <mat-checkbox [(ngModel)]="task.Done"></mat-checkbox>
+          <mat-checkbox [(ngModel)]="task.Done" (change)="markTask(task)"></mat-checkbox>
 
           <div [class.done]="task.Done">
 
-            <span class="cursor-pointer" (click)="openDetailsDialog(task);" title="click to edit"> &nbsp;{{task.Id}}
-              -
-              {{task.TaskName}} +++ {{task.category}}</span>
-
+            <span class="cursor-pointer" (click)="openDetailsDialog(task);" title="click to edit">
+              &nbsp;{{task.TaskName}} +++ {{task.category}}</span>
           </div>
         </section>
         <div>
-          <!-- <mat-form-field appearance="fill">
-            <mat-label>Select a Category</mat-label>
-            <mat-select [(value)]="task.category" (selectionChange)="update(task)">
-              <mat-option [value]="-1">None</mat-option>
-              <mat-option *ngFor="let category of categoriesList" [value]="category.Id">
-                {{category.Name}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field> -->
         </div>
         <div>
           <span class="cursor-pointer" (click)="openConfirmRemoveDialog(task)"> | REMOVE</span>

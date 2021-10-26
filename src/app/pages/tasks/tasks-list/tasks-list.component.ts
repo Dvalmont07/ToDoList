@@ -55,14 +55,13 @@ export class TasksListComponent implements OnInit, OnDestroy {
     });
   }
 
-  markAsDone(task: any) {
-    task.Done = true;
+  markTask(task: ITask) {
     this.tasksService.update(task);
   }
-  revertDoneTask(task: any) {
-    task.Done = false;
-    this.tasksService.update(task);
-  }
+  // revertDoneTask(task: any) {
+  //   task.Done = false;
+  //   this.tasksService.update(task);
+  // }
   editTaskName(task: ITask) {
     if (task.TaskName == '') {
       return;
