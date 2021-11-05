@@ -18,12 +18,16 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 //pages
 import { ConfirmDialogModalComponent } from './componets/confirm-dialog-modal/confirm-dialog-modal.component';
-import { TasksListComponent } from './pages/tasks/tasks-list/tasks-list.component';
+import { TasksListComponent } from './pages/tasks/tasks-main/partial/tasks-list/tasks-list.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { TaskDetailsComponent } from './pages/tasks/task-details/task-details.component';
+import { TaskDetailsComponent } from './pages/tasks/tasks-main/partial/task-details/task-details.component';
+import { TasksMainComponent } from './pages/tasks/tasks-main/tasks-main.component';
+import { TaskEditComponent } from './pages/tasks/tasks-main/partial/task-edit/task-edit.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +38,8 @@ import { TaskDetailsComponent } from './pages/tasks/task-details/task-details.co
     BoolFilterPipe,
     TasksListComponent,
     TaskDetailsComponent,
+    TasksMainComponent,
+    TaskEditComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,11 +53,17 @@ import { TaskDetailsComponent } from './pages/tasks/task-details/task-details.co
     MatSelectModule,
     MatButtonModule,
     MatCheckboxModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatIconModule,
+    MatButtonToggleModule,
 
   ],
   providers: [],
   bootstrap: [AppComponent],
+  exports: [
+    TasksMainComponent,
+    TaskEditComponent
+  ],
 
 })
 export class AppModule { }

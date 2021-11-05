@@ -14,7 +14,7 @@ export class TaskDetailsComponent implements OnInit {
   Result: boolean = false;
   Title: string = "";
   Message: string = "";
-  taskValue: ITask = { TaskName: '', Done: false, Today: false };
+  taskValue: ITask = { TaskName: '', Done: false, Today: false, Favorite: false };
 
   constructor(
     public dialogRef: MatDialogRef<TaskDetailsComponent>,
