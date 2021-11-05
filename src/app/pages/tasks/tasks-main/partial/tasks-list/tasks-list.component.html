@@ -22,7 +22,7 @@
 
                     <div [class.done]="task.Done">
 
-                        <span class="cursor-pointer" (click)="openDetailsDialog(task);" title="click to edit">
+                        <span class="cursor-pointer" (click)="emitTask(task);" title="click to edit">
               &nbsp;{{task.TaskName}} +++ {{task.category}}</span>
                     </div>
                 </section>

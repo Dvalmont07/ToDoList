@@ -1,4 +1,5 @@
 <div>
-    <app-tasks-list [taskList]="taskList">
+    <app-tasks-list [taskList]="taskList" *ngIf="tela=='list'" (onEdit)="openTaskDetails($event)">
     </app-tasks-list>
+    <app-task-details [taskValue]="task" *ngIf="tela=='details'" (onBack)="tela='list'"></app-task-details>
 </div>

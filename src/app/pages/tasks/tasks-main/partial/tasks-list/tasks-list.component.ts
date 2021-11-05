@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmDialogModalComponent } from 'src/app/componets/confirm-dialog-modal/confirm-dialog-modal.component';
 import { ICategory } from 'src/app/interfaces/iCategory';
@@ -35,6 +35,8 @@ export class TasksListComponent implements OnInit, OnDestroy {
   }
 
   @Input() taskList: ITask[] = [];
+
+  @Output() onEdit: EventEmitter<ITask> = new EventEmitter<any>();
 
   ngOnInit(): void {
     // this.getTaskList();
@@ -136,6 +138,10 @@ export class TasksListComponent implements OnInit, OnDestroy {
         this.tasksService.remove(task);
       }
     });
+  }
+
+  emitTask(task: any) {
+    this.onEdit.emit(task);
   }
 
 }
