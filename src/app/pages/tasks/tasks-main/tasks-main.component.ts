@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { ITask } from 'src/app/interfaces/iTask';
 import { TasksService } from 'src/app/services/tasks.service';
 
@@ -11,9 +11,9 @@ export class TasksMainComponent implements OnInit, OnDestroy {
 
   taskList: ITask[] = [];
   task: any;
-  tela: string = "list";
+  //tela: string = "list";
 
-  constructor(private tasksService: TasksService,) { }
+  constructor(private tasksService: TasksService, private renderer: Renderer2, private el: ElementRef) { }
   ngOnDestroy(): void {
 
   }
@@ -30,8 +30,9 @@ export class TasksMainComponent implements OnInit, OnDestroy {
     console.log(task);
 
     this.task = task;
-    this.tela = "details";
+
   }
+
 
 
 }

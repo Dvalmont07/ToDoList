@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmDialogModalComponent } from 'src/app/componets/confirm-dialog-modal/confirm-dialog-modal.component';
 import { ICategory } from 'src/app/interfaces/iCategory';
@@ -14,6 +14,12 @@ import { TaskDetailsComponent } from '../task-details/task-details.component';
 })
 export class TasksListComponent implements OnInit, OnDestroy {
 
+  constructor(
+    private tasksService: TasksService,
+    private dialog: MatDialog,
+    private categoriesService: CategoriesService
+  ) { }
+
   title = 'ToDoList';
   taskName: string = '';
   activeLine: number = -1;
@@ -26,11 +32,6 @@ export class TasksListComponent implements OnInit, OnDestroy {
   message: string = '';
   differ: any;
 
-  constructor(
-    private tasksService: TasksService,
-    private dialog: MatDialog,
-    private categoriesService: CategoriesService
-  ) { }
   ngOnDestroy(): void {
   }
 
@@ -42,6 +43,7 @@ export class TasksListComponent implements OnInit, OnDestroy {
     // this.getTaskList();
     this.getCategoriesList();
   }
+
   addTask(task: ITask) {
     if (this.tasksService.add(task)) {
       this.taskName = '';
@@ -50,20 +52,14 @@ export class TasksListComponent implements OnInit, OnDestroy {
       this.message = 'This field cannot be empty';
     }
   }
-
   removeTask(task: any): void {
     this.tasksService.remove(task).add(() => {
       console.log('task removed');
     });
   }
-
   updateTask(task: ITask) {
     this.tasksService.update(task);
   }
-  // revertDoneTask(task: any) {
-  //   task.Done = false;
-  //   this.tasksService.update(task);
-  // }
   editTaskName(task: ITask) {
     if (task.TaskName == '') {
       return;
@@ -71,27 +67,20 @@ export class TasksListComponent implements OnInit, OnDestroy {
     this.tasksService.update(task);
     this.activeLine = -1;
   }
-
   update(task: ITask) {
-
     if (task) {
       this.tasksService.update(task);
     }
   }
-  drop(list: any[], event: any) {
-    this.tasksService.moveItemInArray(list, event);
-  }
-
-  // getTaskList() {
-  //   this.tasksService.get().subscribe((t) => (this.taskList = t));
-  // }
-
   getCategoriesList() {
     this.categoriesService.get().subscribe((c) => (this.categoriesList = c));
   }
 
   trackTask(index: number, task: ITask) {
     return task ? task.Id : undefined;
+  }
+  drop(list: any[], event: any) {
+    this.tasksService.moveItemInArray(list, event);
   }
 
   //Dialogs
@@ -117,28 +106,28 @@ export class TasksListComponent implements OnInit, OnDestroy {
     });
   }
 
-  openDetailsDialog(task: ITask) {
-    const dialogConfig = new MatDialogConfig();
+  // openDetailsDialog(task: ITask) {
+  //   const dialogConfig = new MatDialogConfig();
 
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.data = {
-      Title: 'Task Detailsx',
-      Message: '',
-      Result: false,
-      Id: task.Id
-    };
-    const dialogRef = this.dialog.open(
-      TaskDetailsComponent,
-      dialogConfig
-    );
+  //   dialogConfig.disableClose = true;
+  //   dialogConfig.autoFocus = true;
+  //   dialogConfig.data = {
+  //     Title: 'Task Detailsx',
+  //     Message: '',
+  //     Result: false,
+  //     Id: task.Id
+  //   };
+  //   const dialogRef = this.dialog.open(
+  //     TaskDetailsComponent,
+  //     dialogConfig
+  //   );
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result === true) {
-        this.tasksService.remove(task);
-      }
-    });
-  }
+  //   dialogRef.afterClosed().subscribe((result) => {
+  //     if (result === true) {
+  //       this.tasksService.remove(task);
+  //     }
+  //   });
+  // }
 
   emitTask(task: any) {
     this.onEdit.emit(task);

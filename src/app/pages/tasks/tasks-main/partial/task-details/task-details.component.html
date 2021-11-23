@@ -1,6 +1,5 @@
-<h2> <span class="cursor-pointer" (click)="back()">Back - </span> Details</h2>
-
-<section *ngIf="taskValue">
+<h2>Details</h2>
+<section *ngIf="taskValue" style="border: 1px solid #ccc;">
     <section class="d-flex">
         <h3 class="flex-grow-1">{{taskValue.TaskName}}</h3>
         <div>Favorite</div>

@@ -17,7 +17,7 @@ export class TasksService implements IBaseMethods<ITask> {
 
   update(task: ITask): Observable<boolean> {
     let bakpList: any[] = arrayHelper.clone(this.taskList);
-    sessionStorage['taskList'] = arrayHelper.saveToSession(this.taskList);
+    sessionStorage['taskList'] = arrayHelper.saveToJSON(this.taskList);
 
     return of(bakpList !== this.taskList);
   }
@@ -26,7 +26,7 @@ export class TasksService implements IBaseMethods<ITask> {
     if (task.TaskName) {
       task.Id = arrayHelper.getHighest(this.taskList, "Id");
       this.taskList.push(task);
-      sessionStorage['taskList'] = arrayHelper.saveToSession(this.taskList);
+      sessionStorage['taskList'] = arrayHelper.saveToJSON(this.taskList);
       return of(true);
     }
     return of(false);
@@ -35,25 +35,24 @@ export class TasksService implements IBaseMethods<ITask> {
 
   remove(task: ITask): any {
     let bakpList: any[] = arrayHelper.clone(this.taskList);
-    let sub = new Observable();
+
     this.taskList.forEach((value, index) => {
       if (value.Id === task.Id) {
         this.taskList.splice(index, 1);
       }
     });
-    sessionStorage['taskList'] = arrayHelper.saveToSession(this.taskList);
+    sessionStorage['taskList'] = arrayHelper.saveToJSON(this.taskList);
 
     return (bakpList !== this.taskList);
   }
   get(): Observable<ITask[]> {
     if (sessionStorage['taskList']) {
-      this.taskList = arrayHelper.getFromSession(sessionStorage['taskList']);
+      this.taskList = arrayHelper.getFromJSON(sessionStorage['taskList']);
     } else {
       this.taskList = TODOTASKSLIST;
     }
     return of(this.taskList);
   }
-  // oootask: ITask[] = [];//{ TaskName: '', Done: false, Today: false };
 
   getById(idTask: number): Observable<ITask> {
     let task: ITask[] = [];
@@ -64,6 +63,6 @@ export class TasksService implements IBaseMethods<ITask> {
   moveItemInArray(taskList: any[], event: any) {
     let originalList = arrayHelper.clone(taskList);
     moveItemInArray(taskList, event.previousIndex, event.currentIndex);
-    sessionStorage['taskList'] = arrayHelper.saveToSession(taskList);
+    sessionStorage['taskList'] = arrayHelper.saveToJSON(taskList);
   }
 }

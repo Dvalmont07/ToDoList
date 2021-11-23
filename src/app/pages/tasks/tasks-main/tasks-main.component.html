@@ -1,5 +1,5 @@
-<div>
-    <app-tasks-list [taskList]="taskList" *ngIf="tela=='list'" (onEdit)="openTaskDetails($event)">
+<div class="d-flex">
+    <app-tasks-list [taskList]="taskList" (onEdit)="openTaskDetails($event)" style="flex-basis: 50%;">
     </app-tasks-list>
-    <app-task-details [taskValue]="task" *ngIf="tela=='details'" (onBack)="tela='list'"></app-task-details>
+    <app-task-details [taskValue]="task" style="flex-basis: 50%;"></app-task-details>
 </div>
