@@ -19,27 +19,29 @@
       class="tasks-list">
       <div
         *ngFor="let task of taskList | multipleSearchFilter:['TaskName']:searchText ; let index = index; trackBy: trackTask"
-        class="task-box cursor-move" [class.done-task]="task.Done" cdkDrag>
+        class="task-box cursor-move" cdkDrag>
 
-        <section id="buttons" class="d-flex" style="flex-basis: 85%;">
+        <section id="buttons" class="d-flex " style="flex-basis: 85%;" [class.done-task]="task.Done">
 
+          <mat-checkbox [(ngModel)]="task.Favorite" (change)="updateTask(task)" color="primary" style="display: none;">
+          </mat-checkbox>
+          <mat-icon [class.alpha]="!task.Favorite" (click)="task.Favorite = !task.Favorite" class="cursor-pointer"
+            title="Favorite Task">
+            favorite</mat-icon>
           <mat-checkbox [(ngModel)]="task.Done" (change)="updateTask(task)"></mat-checkbox>
 
           <div [class.done]="task.Done">
-
             <span class="cursor-pointer" (click)="emitTask(task);" title="click to edit">
               &nbsp;{{task.TaskName}} +++ {{task.category}}</span>
-
           </div>
-
         </section>
         <div>
-          <mat-icon class="ml-3" style="flex-basis: 5%;" *ngIf="task.Today"> wb_sunny </mat-icon>
+          <mat-icon class="ml-3" style="flex-basis: 5%;" *ngIf="task.Today" [class.done-task]="task.Done"> wb_sunny
+          </mat-icon>
         </div>
         <div>
           <span class="cursor-pointer" (click)="openConfirmRemoveDialog(task)"> | <mat-icon>delete</mat-icon>
             &nbsp;</span>
-          <mat-checkbox [(ngModel)]="task.Favorite" (change)="updateTask(task)" color="primary"></mat-checkbox>
 
         </div>
 
