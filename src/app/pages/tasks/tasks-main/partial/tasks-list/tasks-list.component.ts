@@ -5,7 +5,7 @@ import { ICategory } from 'src/app/interfaces/iCategory';
 import { ITask } from 'src/app/interfaces/iTask';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { TasksService } from 'src/app/services/tasks.service';
-import { TaskDetailsComponent } from '../task-details/task-details.component';
+import { Editor } from 'ngx-editor';
 
 @Component({
   selector: 'app-tasks-list',
@@ -31,6 +31,10 @@ export class TasksListComponent implements OnInit, OnDestroy {
   selectedIdICategory: number = -1;
   message: string = '';
   differ: any;
+  editor: Editor = new Editor();
+  html: string = '';
+
+
 
   ngOnDestroy(): void {
   }
@@ -40,7 +44,9 @@ export class TasksListComponent implements OnInit, OnDestroy {
   @Output() onEdit: EventEmitter<ITask> = new EventEmitter<any>();
 
   ngOnInit(): void {
+    //TODO contruir sistema de rebalanceamento de carteira de ações
     // this.getTaskList();
+   
     this.getCategoriesList();
   }
 

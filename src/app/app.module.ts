@@ -20,6 +20,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 //pages
 import { ConfirmDialogModalComponent } from './componets/confirm-dialog-modal/confirm-dialog-modal.component';
@@ -28,6 +29,12 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { TaskDetailsComponent } from './pages/tasks/tasks-main/partial/task-details/task-details.component';
 import { TasksMainComponent } from './pages/tasks/tasks-main/tasks-main.component';
 import { TaskEditComponent } from './pages/tasks/tasks-main/partial/task-edit/task-edit.component';
+import { HttpClientModule } from '@angular/common/http';
+import { AngularEditorModule } from '@kolkov/angular-editor';
+import { NgxEditorModule } from 'ngx-editor';
+// import { QuillModule } from 'ngx-quill'
+
+
 
 @NgModule({
   declarations: [
@@ -56,7 +63,12 @@ import { TaskEditComponent } from './pages/tasks/tasks-main/partial/task-edit/ta
     MatSlideToggleModule,
     MatIconModule,
     MatButtonToggleModule,
-
+    HttpClientModule, 
+    AngularEditorModule,
+    ColorPickerModule,
+    NgxEditorModule,
+    // QuillModule.forRoot(),
+    
   ],
   providers: [],
   bootstrap: [AppComponent],
