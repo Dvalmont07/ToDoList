@@ -32,6 +32,14 @@ import { TaskEditComponent } from './pages/tasks/tasks-main/partial/task-edit/ta
 import { HttpClientModule } from '@angular/common/http';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { NgxEditorModule } from 'ngx-editor';
+import { PrintComponent } from './pages/print/print.component';
+import { CommonModule } from '@angular/common';
+import { ElementClickComponent } from './pages/element-click/element-click.component';
+import { IndexDBTestsComponent } from './pages/indexDBTests/indexDBTests.component';
+import { BlocoTextoComponent } from './pages/bloco-texto/bloco-texto.component';
+import { NewPrintComponent } from './pages/new-print/new-print.component';
+
+
 // import { QuillModule } from 'ngx-quill'
 
 
@@ -47,8 +55,15 @@ import { NgxEditorModule } from 'ngx-editor';
     TaskDetailsComponent,
     TasksMainComponent,
     TaskEditComponent,
+    PrintComponent,
+    ElementClickComponent,
+    IndexDBTestsComponent,
+    BlocoTextoComponent,
+    NewPrintComponent,
+    
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     MatDialogModule,
@@ -67,6 +82,7 @@ import { NgxEditorModule } from 'ngx-editor';
     AngularEditorModule,
     ColorPickerModule,
     NgxEditorModule,
+    
     // QuillModule.forRoot(),
     
   ],
@@ -74,7 +90,10 @@ import { NgxEditorModule } from 'ngx-editor';
   bootstrap: [AppComponent],
   exports: [
     TasksMainComponent,
-    TaskEditComponent
+    TaskEditComponent,
+    PrintComponent, 
+    IndexDBTestsComponent, BlocoTextoComponent, NewPrintComponent,
+    
   ],
 
 })

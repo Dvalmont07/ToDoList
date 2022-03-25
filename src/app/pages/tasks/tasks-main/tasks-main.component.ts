@@ -71,9 +71,9 @@ export class TasksMainComponent implements OnInit, OnDestroy {
     public vcRef: ViewContainerRef,
     private cpService: ColorPickerService) { }
 
-//Quill
+  //Quill
 
-//end Quill
+  //end Quill
 
 
   ngOnInit(): void {
@@ -103,7 +103,7 @@ export class TasksMainComponent implements OnInit, OnDestroy {
   }
 
   openTaskDetails(task: any) {
-    console.log(task);
+    //console.log(task);
 
     this.task = task;
 
@@ -126,7 +126,7 @@ export class TasksMainComponent implements OnInit, OnDestroy {
   }
 
   toPDF() {
-    let data = document.querySelector("#contextx") as HTMLElement 
+    let data = document.querySelector("#contextx") as HTMLElement
     html2canvas(data).then(canvas => {
       // Few necessary setting options  
       var imgWidth = 210;
@@ -137,24 +137,40 @@ export class TasksMainComponent implements OnInit, OnDestroy {
       const contentDataURL = canvas.toDataURL('image/png')
       let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
       var position = 0;
-      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)
+      // pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+
+      let count = 0;
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+
+        if (count > 0) {
+          pdf.addPage();
+        }
+
+        count++;
+
+        pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+
+        heightLeft -= pageHeight;
+      }
+
       pdf.save('MYPdf.pdf'); // Generated PDF   
     });
   }
 
   onChangeColor(event: any) {
-    console.log(event);
+    //console.log(event);
 
   }
 
   teste2() {
-    console.log("html", this.html);
+    // console.log("html", this.html);
 
   }
 
-  blur(){
-    console.log("blue");
-    
+  blur() {
+    // console.log("blue");
+
   }
 
 }

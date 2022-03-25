@@ -45,10 +45,17 @@ export class TasksListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     //TODO contruir sistema de rebalanceamento de carteira de ações
-    // this.getTaskList();
-   
-    this.getCategoriesList();
+
+    window.onbeforeunload = function(){
+      myfun();
+      return 'Are you sure you want to leave?';
+    };
+
   }
+
+
+
+
 
   addTask(task: ITask) {
     if (this.tasksService.add(task)) {
@@ -60,7 +67,7 @@ export class TasksListComponent implements OnInit, OnDestroy {
   }
   removeTask(task: any): void {
     this.tasksService.remove(task).add(() => {
-      console.log('task removed');
+      // console.log('task removed');
     });
   }
   updateTask(task: ITask) {
@@ -112,6 +119,31 @@ export class TasksListComponent implements OnInit, OnDestroy {
     });
   }
 
+  openConfirmRemoveDialogTeste() {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = {
+      Title: 'Remove Task',
+      Message: 'Are you sure you want to remove this task?',
+      Result: false,
+    };
+    const dialogRef = this.dialog.open(
+      ConfirmDialogModalComponent,
+      dialogConfig
+    );
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === true) {
+        // console.log("hey ater close");
+
+        //this.tasksService.remove(task);
+      }
+    });
+  }
+
+
   // openDetailsDialog(task: ITask) {
   //   const dialogConfig = new MatDialogConfig();
 
@@ -140,3 +172,7 @@ export class TasksListComponent implements OnInit, OnDestroy {
   }
 
 }
+function myfun() {
+  alert('hello');
+}
+

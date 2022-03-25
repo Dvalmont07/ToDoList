@@ -1,0 +1,69 @@
+:host {
+  font-size: 20px;
+
+  .section-context {
+    display: flex;
+    justify-content: center;
+    border: 10px solid #ccc;
+    width: 80%;
+
+    .context {
+      width: 210mm;
+
+      //height: 297mm;
+    }
+
+    .list-item {
+      margin: 0px 20px 0px 20px;
+      background-color: aliceblue;
+
+      &.purple {
+        background-color: purple;
+      }
+    }
+
+    .border {
+      border: 1px solid #ccc;
+    }
+  }
+
+  @media print {
+    .pagebreak {
+      page-break-before: always;
+    }
+
+    /* page-break-after works, as well */
+  }
+
+}
+
+@media print {
+  .pagebreak {
+    page-break-before: always;
+  }
+
+  /* page-break-after works, as well */
+}
+
+.highlight {
+  animation-name: my-highlight;
+  animation-duration: 5s;
+}
+
+@keyframes  my-highlight {
+  from {
+
+    -webkit-box-shadow: 0px 0px 29px 0px rgba(237, 226, 17, 0.87);
+    -moz-box-shadow: 0px 0px 29px 0px rgba(237, 226, 17, 0.87);
+    box-shadow: 0px 0px 29px 0px rgba(237, 226, 17, 0.87);
+
+  }
+
+  to {
+    box-shadow: none
+  }
+}
+
+// @page {
+//     margin: 50cm;
+//     }

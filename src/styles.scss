@@ -216,4 +216,18 @@
   }
 
   //TODO Padding space
+
+ 
 }
+
+@media print {
+
+  .section-context{
+    background-color: aquamarine;
+  }
+}
+
+// @page {
+//   margin: 50cm;
+//   }
+

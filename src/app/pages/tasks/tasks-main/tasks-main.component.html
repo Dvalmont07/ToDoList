@@ -1,6 +1,8 @@
 
+
+<!-- <app-print></app-print> -->
 <div class="d-flex" >
-    <button (click)="toPDF()">Exportar para PDF</button>
+    <button (click)="  downloadPDF()">Exportar para PDF</button>
     <app-tasks-list [taskList]="taskList" (onEdit)="openTaskDetails($event)" style="flex-basis: 50%;" #contextx id="contextx">
     </app-tasks-list>
     <app-task-details [taskValue]="task" style="flex-basis: 50%;"></app-task-details>

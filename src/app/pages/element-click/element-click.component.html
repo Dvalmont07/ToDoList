@@ -1,0 +1,7 @@
+<section id="externalElement" class="external-element" data-description="parent-element">
+
+  <div class="internal-element" [class.active]="item.Active" *ngFor="let item of tasks; let ind=index" (click)="setActiveTask(item)">
+    {{item.Title}}
+  </div>
+
+</section>
