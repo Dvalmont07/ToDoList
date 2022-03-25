@@ -1,0 +1,9 @@
+
+<button (click)="setPreviewMode()">Preview</button>
+<button (click)="gerarPDF()">Print</button>
+<section style="display: flex; width:210mm; border: 1px solid royalblue; ">
+  <div  class="left-panel" style="display: flex; flex-direction: column;flex-basis: 50%;">
+    <div class="boxes" style="border: 1px solid red; background-color: azure;"  *ngFor="let item of list; let ind = index" [style.height.px]="item.Height" >{{item.Title}}</div>
+  </div>
+  <div class="right-panel" style="flex-basis: 50%;"></div>
+</section>

@@ -1,0 +1,26 @@
+<section class="section-context">
+  <div class="list-container" style="display: flex;flex-direction: column;">
+    <input type="button" (click)=" gerarPDF()" style="cursor: pointer;" value="Print">
+    <button (click)="goToPosition('.number-15')">Go to limão</button>
+    <div id="context" class="context">
+      <div *ngFor="let item of list; let ind = index">
+        <div *ngIf="!item.Placeholder" class="border list-item number-{{ind}}" [style.height.px]="item.Height">
+          {{ind}} - {{item.Title}}
+        </div>
+        <div *ngIf="item.Placeholder" [style.height.px]="item.Height" class="pagebreak"
+          style="display: flex;  margin: 0px 20px 0px 20px">
+          <div style="display: flex;  width: 100%;align-items: flex-end; margin-bottom: 50px;">
+            <div style="flex-grow: 1;">Hash</div>
+            <div>
+              <a href="h../../../assets/Images/footer-logo.png" download="apple.jpg">
+                <button type="button">Download</button>
+              </a>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

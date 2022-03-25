@@ -1,0 +1,15 @@
+<h2>Details</h2>
+<section *ngIf="taskValue" style="border: 1px solid #ccc;">
+    <section class="d-flex">
+        <h3 class="flex-grow-1">{{taskValue.TaskName}}</h3>
+        <div>Favorite</div>
+    </section>
+    <div><span></span>
+        <mat-slide-toggle [(ngModel)]="taskValue.Today" class="example-margin" color="red">Add to 'my day'
+        </mat-slide-toggle>
+    </div>
+    <div>Remember me [options-> calendar]</div>
+    <div>Schedulle [options-> calendar]</div>
+    <div>Repeat [options-> calendar]</div>
+    <div>Add note [options-> calendar]</div>
+</section>

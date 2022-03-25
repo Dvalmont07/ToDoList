@@ -1,0 +1,16 @@
+<!-- <button (click)="addIntoPosition()">Go</button> -->
+
+<select (change)="addIntoPosition()" [(ngModel)]="mySelection" name="mySelection" title="mySelection">
+  <option *ngFor="let item of list" value="{{item}}">{{item}}</option>
+</select>
+
+<div class="d-flex flex-column">
+  <label for="textareaContent">Texto</label>
+  <textarea id="textareaContent" [(ngModel)]="textareaContent"></textarea>
+</div>
+
+<div id="fakeTextArea" [contentEditable]="true" >
+
+</div>
+
+

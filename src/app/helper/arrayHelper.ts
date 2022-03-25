@@ -8,10 +8,10 @@ export class arrayHelper {
     });
     return newArray;
   }
-  public static saveToSession(list: any[]) {
+  public static saveToJSON(list: any[]) {
     return JSON.stringify(list);
   }
-  public static getFromSession(json: string) {
+  public static getFromJSON(json: string) {
     return JSON.parse(json);
   }
 

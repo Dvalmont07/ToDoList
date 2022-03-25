@@ -7,13 +7,43 @@ import { AppComponent } from './app.component';
 import { MultipleSearchFilterPipe } from './pipes/multiple-search-filter.pipe';
 import { FilterPipe } from './pipes/filter.pipe';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { MatDialogModule } from '@angular/material/dialog';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ConfirmDialogModalComponent } from './componets/confirm-dialog-modal/confirm-dialog-modal.component';
+
+//Material
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDividerModule } from '@angular/material/divider/';
 import { BoolFilterPipe } from './pipes/bool-filter.pipe';
 import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { ColorPickerModule } from 'ngx-color-picker';
+
+//pages
+import { ConfirmDialogModalComponent } from './componets/confirm-dialog-modal/confirm-dialog-modal.component';
+import { TasksListComponent } from './pages/tasks/tasks-main/partial/tasks-list/tasks-list.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { TaskDetailsComponent } from './pages/tasks/tasks-main/partial/task-details/task-details.component';
+import { TasksMainComponent } from './pages/tasks/tasks-main/tasks-main.component';
+import { TaskEditComponent } from './pages/tasks/tasks-main/partial/task-edit/task-edit.component';
+import { HttpClientModule } from '@angular/common/http';
+import { AngularEditorModule } from '@kolkov/angular-editor';
+import { NgxEditorModule } from 'ngx-editor';
+import { PrintComponent } from './pages/print/print.component';
+import { CommonModule } from '@angular/common';
+import { ElementClickComponent } from './pages/element-click/element-click.component';
+import { IndexDBTestsComponent } from './pages/indexDBTests/indexDBTests.component';
+import { BlocoTextoComponent } from './pages/bloco-texto/bloco-texto.component';
+import { NewPrintComponent } from './pages/new-print/new-print.component';
+
+
+// import { QuillModule } from 'ngx-quill'
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,19 +51,50 @@ import { MatSelectModule } from '@angular/material/select';
     FilterPipe,
     ConfirmDialogModalComponent,
     BoolFilterPipe,
+    TasksListComponent,
+    TaskDetailsComponent,
+    TasksMainComponent,
+    TaskEditComponent,
+    PrintComponent,
+    ElementClickComponent,
+    IndexDBTestsComponent,
+    BlocoTextoComponent,
+    NewPrintComponent,
+    
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
+    MatDialogModule,
     FormsModule,
     DragDropModule,
-    MatDialogModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
     MatDividerModule,
     MatSelectModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatSlideToggleModule,
+    MatIconModule,
+    MatButtonToggleModule,
+    HttpClientModule, 
+    AngularEditorModule,
+    ColorPickerModule,
+    NgxEditorModule,
+    
+    // QuillModule.forRoot(),
+    
   ],
   providers: [],
   bootstrap: [AppComponent],
+  exports: [
+    TasksMainComponent,
+    TaskEditComponent,
+    PrintComponent, 
+    IndexDBTestsComponent, BlocoTextoComponent, NewPrintComponent,
+    
+  ],
+
 })
 export class AppModule { }

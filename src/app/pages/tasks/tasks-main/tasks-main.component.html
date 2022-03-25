@@ -1,0 +1,32 @@
+
+
+<!-- <app-print></app-print> -->
+<div class="d-flex" >
+    <button (click)="  downloadPDF()">Exportar para PDF</button>
+    <app-tasks-list [taskList]="taskList" (onEdit)="openTaskDetails($event)" style="flex-basis: 50%;" #contextx id="contextx">
+    </app-tasks-list>
+    <app-task-details [taskValue]="task" style="flex-basis: 50%;"></app-task-details>
+</div>
+<angular-editor  [(ngModel)]="htmlContent" ></angular-editor>
+<angular-editor  [(ngModel)]="htmlContent2" ></angular-editor>
+
+<div>Linha 1: {{htmlContent}}</div>
+<hr/>
+<div>Linha 2: {{htmlContent2}}</div>
+<p [style.color]="color1">
+    colorpicker works!
+   </p>
+   <div [(colorPicker)]="color1" (colorPickerChange)="onChangeColor($event)" >Lo</div>
+
+   <div class="NgxEditor__Wrapper" (blur)="blur()" >
+    <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
+    <ngx-editor (ngModelChange)="teste2()"
+      [editor]="editor"
+      [(ngModel)]="html"
+      [disabled]="false"
+      [placeholder]="'Type here...'"
+      
+    ></ngx-editor>
+  </div>
+
+<div *ngIf="html">{{html.content[0].content[0].text}}</div>

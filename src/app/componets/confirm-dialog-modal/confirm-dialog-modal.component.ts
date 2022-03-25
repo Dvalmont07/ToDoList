@@ -1,13 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-
-export interface DialogData {
-  Result: boolean;
-  Title: string;
-  Message: string;
-}
-
+import { IDialogData } from 'src/app/interfaces/iDialogData';
 @Component({
   selector: 'app-dialog-modal',
   templateUrl: './confirm-dialog-modal.component.html',
@@ -21,7 +15,7 @@ export class ConfirmDialogModalComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<ConfirmDialogModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
+    @Inject(MAT_DIALOG_DATA) public data: IDialogData) { }
 
   ngOnInit() {
   }

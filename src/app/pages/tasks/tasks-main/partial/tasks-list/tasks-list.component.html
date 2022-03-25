@@ -1,0 +1,62 @@
+<button class="btn btn-danger">teste</button>
+<section id="tasksContainer" class="tasks-container">
+  <section id="inputSearchSection">
+    <input id="txtSearch" name="txtSearch" type="search" [(ngModel)]="searchText" />
+  </section>
+  <section id="toDoTaskList" class="todo-task-list">
+    <header class="my-2">
+      <h1>ToDo List</h1>
+    </header>
+    <input name="taskName" id="taskName" [(ngModel)]="taskName"
+      (keyup.enter)="addTask({TaskName: taskName, Done: false, Today: false, Favorite: false})" />
+
+
+    <input type="button" value="add"
+      (click)="addTask({TaskName: taskName, Done: false, Today: false, Favorite: false})" />
+    <div>{{message}}</div>
+
+
+    <div *ngIf="taskList.length > 0;  else emptyList" cdkDropList (cdkDropListDropped)="drop(taskList, $event)"
+      class="tasks-list">
+      <div
+        *ngFor="let task of taskList | multipleSearchFilter:['TaskName']:searchText ; let index = index; trackBy: trackTask"
+        class="task-box cursor-move" cdkDrag>
+
+        <section id="buttons" class="d-flex " style="flex-basis: 85%;" [class.done-task]="task.Done">
+
+          <mat-checkbox [(ngModel)]="task.Favorite" (change)="updateTask(task)" color="primary" style="display: none;">
+          </mat-checkbox>
+          <mat-icon [class.alpha]="!task.Favorite" (click)="task.Favorite = !task.Favorite" class="cursor-pointer"
+            title="Favorite Task">
+            favorite</mat-icon>
+          <mat-checkbox [(ngModel)]="task.Done" (change)="updateTask(task)"></mat-checkbox>
+
+          <div [class.done]="task.Done">
+            <span class="cursor-pointer" (click)="emitTask(task);" title="click to edit">
+              &nbsp;{{task.TaskName}} +++ {{task.category}}</span>
+          </div>
+        </section>
+        <div>
+          <mat-icon class="ml-3" style="flex-basis: 5%;" *ngIf="task.Today" [class.done-task]="task.Done"> wb_sunny
+          </mat-icon>
+        </div>
+        <div>
+          <span class="cursor-pointer" (click)="openConfirmRemoveDialog(task)"> | <mat-icon>delete</mat-icon>
+            &nbsp;</span>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <mat-divider></mat-divider>
+</section>
+
+<!-- Templates -->
+<ng-template #emptyList>
+  <div>There's no tasks to be shown</div>
+</ng-template>
+<!-- Modals -->
+<section #modalMessage class="modal-message">
+  <div class="modal-message-box">message</div>
+</section>
