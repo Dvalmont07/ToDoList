@@ -1,63 +1,75 @@
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscriber, Subscription } from 'rxjs';
 import { arrayHelper } from '../helper/arrayHelper';
-import { EntityBase } from '../interfaces/entityBase';
-import { MyTask } from '../interfaces/myTask';
+import { IBaseMethods } from '../interfaces/iBaseMethods';
+import { ITask } from '../interfaces/iTask';
+import { TODOTASKSLIST } from './mocks/TasksList';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class TasksService implements EntityBase {
-
-  list: Record<string, Partial<any[]>> = {};
+export class TasksService implements IBaseMethods<ITask> {
+  taskList: any[] = [];
+  // list: Record<string, Partial<any[]>> = {};
 
   constructor() { }
+  getById(): Observable<ITask> {
+    throw new Error('Method not implemented.');
+  }
 
-  add(listName: string, task: MyTask): boolean {
+  update(task: ITask): Observable<boolean> {
+    let bakpList: any[] = arrayHelper.clone(this.taskList);
+    sessionStorage['taskList'] = arrayHelper.saveToSession(this.taskList);
 
+    return of(bakpList !== this.taskList);
+  }
+
+  add(task: ITask): Observable<boolean> {
     if (task.TaskName) {
-      task.Order = this.list[listName].length > 0 ? Math.max(... this.list[listName].map(x => { return x.Order })) + 1 : 1;
-      this.list[listName].push(task);
-      sessionStorage[listName] = arrayHelper.saveToSession(this.list[listName]);
-      return true;
+      task.Id = arrayHelper.getHighest(this.taskList, "Id");
+      //task.Order = arrayHelper.getHighest(this.taskList, "Order"); //this.taskList.length > 0 ? Math.max(...this.taskList.map((x) => { return x.Order; })) + 1 : 1;
+      this.taskList.push(task);
+      sessionStorage['taskList'] = arrayHelper.saveToSession(this.taskList);
+      return of(true);
     }
-    return false;
+    return of(false);
   }
-  remove(listName: string, task: MyTask): boolean {
 
-    let bakpList: any[] = arrayHelper.clone(this.list[listName]);
 
-    this.list[listName].forEach((value, index) => {
-      if (value.Order === task.Order) {
-        this.list[listName].splice(index, 1);
+  remove(task: ITask): any {
+    let bakpList: any[] = arrayHelper.clone(this.taskList);
+    let sub = new Observable();
+    this.taskList.forEach((value, index) => {
+      if (value.Id === task.Id) {
+        this.taskList.splice(index, 1);
       }
     });
-    sessionStorage[listName] = arrayHelper.saveToSession(this.list[listName]);
-    return (bakpList !== this.list[listName]);
-  }
-  get(listName: string): Observable<MyTask[]> {
+    sessionStorage['taskList'] = arrayHelper.saveToSession(this.taskList);
 
-    if (sessionStorage[listName]) {
-      this.list[listName] = arrayHelper.getFromSession(sessionStorage[listName]);
+    return (bakpList !== this.taskList);
+  }
+  get(): Observable<ITask[]> {
+    if (sessionStorage['taskList']) {
+      this.taskList = arrayHelper.getFromSession(sessionStorage['taskList']);
     } else {
-      this.list[listName] = [];
+      this.taskList = TODOTASKSLIST;
     }
-    return of(this.list[listName]);
+    return of(this.taskList);
   }
-  rename(listName: string, task: MyTask) {
 
-    this.list[listName].some(element => {
-      if (element.Order == task.Order) {
-        element.TaskName = task.TaskName
-      }
-    });
+  // edit(task: ITask) {
+  //   this.taskList.some((element) => {
+  //     if (element.Order == task.Order) {
+  //       element.TaskName = task.TaskName;
+  //     }
+  //   });
 
-    sessionStorage[listName] = arrayHelper.saveToSession(this.list[listName]);
-  }
-  moveItemInArray(list: any[], event: any, listName: string) {
-
-    moveItemInArray(list, event.previousIndex, event.currentIndex);
-    sessionStorage[listName] = arrayHelper.saveToSession(list);
+  //   sessionStorage['taskList'] = arrayHelper.saveToSession(this.taskList);
+  // }
+  moveItemInArray(taskList: any[], event: any) {
+    let originalList = arrayHelper.clone(taskList);
+    moveItemInArray(taskList, event.previousIndex, event.currentIndex);
+    sessionStorage['taskList'] = arrayHelper.saveToSession(taskList);
   }
 }

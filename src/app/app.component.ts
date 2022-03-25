@@ -1,94 +1,112 @@
 import { Component, OnInit } from '@angular/core';
-import { MyTask } from './interfaces/myTask';
+import { ITask } from './interfaces/iTask';
 import { TasksService } from './services/tasks.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmDialogModalComponent } from './componets/confirm-dialog-modal/confirm-dialog-modal.component';
+import { CategoriesService } from './services/categories.service';
+import { ICategory } from './interfaces/iCategory';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-
-  constructor(private tasksService: TasksService, private dialog: MatDialog) { }
+  constructor(
+    private tasksService: TasksService,
+    private dialog: MatDialog,
+    private categoriesService: CategoriesService
+  ) { }
 
   title = 'ToDoList';
-  taskName: string = "";
-  taskNameEdited: string = "";
+  taskName: string = '';
   activeLine: number = -1;
-  searchText: string = "";
+  searchText: string = '';
 
-  toDoTaskList: MyTask[] = []
-  doneTaskList: MyTask[] = []
-
-  readonly toDoTaskName: string = "toDoTaskList";
-  readonly doneTaskName: string = "doneTaskList";
-  message: string = "";
+  taskList: ITask[] = [];
+  toDoTaskList: ITask[] = [];
+  doneTaskList: ITask[] = [];
+  categoriesList: ICategory[] = [];
+  selectedIdICategory: number = -1;
+  message: string = '';
+  differ: any;
 
   ngOnInit(): void {
-    this.getToDoTaskList();
-    this.getDoneTaskList();
+    this.getTaskList();
+    this.getCategoriesList();
+  }
+  addTask(task: ITask) {
+    if (this.tasksService.add(task)) {
+      this.taskName = '';
+      this.message = '';
+    } else {
+      this.message = 'This field cannot be empty';
+    }
   }
 
-  addToDoTask(task: MyTask) {
-    if (this.tasksService.add(this.toDoTaskName, task)) {
-      this.taskName = "";
-      this.message = "";
-    } else {
-      this.message = "This field cannot be empty";
-    }
+  removeTask(task: any): void {
+    this.tasksService.remove(task).add(() => {
+      console.log('task removed');
+    });
   }
-  addDoneTask(task: MyTask) {
-    this.tasksService.add(this.doneTaskName, task);
-  }
-  removeToDoTask(task: any): boolean {
-    return this.tasksService.remove(this.toDoTaskName, task);
-  }
-  removeDoneTask(task: any): boolean {
-    return this.tasksService.remove(this.doneTaskName, task);
-  }
+
   markAsDone(task: any) {
-    if (this.removeToDoTask(task)) {
-      this.addDoneTask(task);
-    }
+    task.Done = true;
+    this.tasksService.update(task);
   }
   revertDoneTask(task: any) {
-    if (this.removeDoneTask(task)) {
-      this.addToDoTask(task);
-    }
+    task.Done = false;
+    this.tasksService.update(task);
   }
-  renameTaskName(task: any) {
-    if (task.TaskName == "") { return; }
-    this.tasksService.rename(this.toDoTaskName, task);
-    this.taskNameEdited = "";
+  editTaskName(task: ITask) {
+    if (task.TaskName == '') {
+      return;
+    }
+    this.tasksService.update(task);
     this.activeLine = -1;
   }
-  drop(list: any[], event: any, listName: string) {
 
-    this.tasksService.moveItemInArray(list, event, listName);
-  }
-  getToDoTaskList() {
-    return this.tasksService.get(this.toDoTaskName).subscribe(t => this.toDoTaskList = t);
-  }
-  getDoneTaskList() {
-    return this.tasksService.get(this.doneTaskName).subscribe(t => this.doneTaskList = t);
-  }
-  openConfirmRemoveDialog(task: MyTask, listName: string) {
+  update(task: ITask) {
 
+    if (task) {
+      this.tasksService.update(task);
+    }
+  }
+  drop(list: any[], event: any) {
+    this.tasksService.moveItemInArray(list, event);
+  }
+
+  getTaskList() {
+    this.tasksService.get().subscribe((t) => (this.taskList = t));
+  }
+
+  getCategoriesList() {
+    this.categoriesService.get().subscribe((c) => (this.categoriesList = c));
+  }
+
+  openConfirmRemoveDialog(task: ITask) {
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.data = { Title: "Remove Task", Message: 'Are you sure you want to remove this task?', Result: false }
-    const dialogRef = this.dialog.open(ConfirmDialogModalComponent, dialogConfig);
+    dialogConfig.data = {
+      Title: 'Remove Task',
+      Message: 'Are you sure you want to remove this task?',
+      Result: false,
+    };
+    const dialogRef = this.dialog.open(
+      ConfirmDialogModalComponent,
+      dialogConfig
+    );
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result === true) {
-        this.tasksService.remove(listName, task);
+        this.tasksService.remove(task);
       }
     });
   }
+
+  trackTask(index: number, task: ITask) {
+    return task ? task.Id : undefined;
+  }
 }
-
-
