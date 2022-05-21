@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BlocoTextoComponent } from './pages/bloco-texto/bloco-texto.component';
 import { ElementClickComponent } from './pages/element-click/element-click.component';
+import { FollowingScrollComponent } from './pages/following-scroll/following-scroll.component';
+import { FreezeColumnsComponent } from './pages/freeze-columns/freeze-columns.component';
 import { IndexDBTestsComponent } from './pages/indexDBTests/indexDBTests.component';
 import { NewPrintComponent } from './pages/new-print/new-print.component';
 import { PrintComponent } from './pages/print/print.component';
@@ -43,6 +45,16 @@ const routes: Routes = [
     path: "new-print",
     component: NewPrintComponent,
     data: { title: "My new-print Test" },
+  },
+  {
+    path: "freeze-columns",
+    component: FreezeColumnsComponent,
+    data: { title: "My new-print Test" },
+  },
+  {
+    path: "following-scroll",
+    component: FollowingScrollComponent,
+    data: { title: "following-scroll" },
   },
 ];
 
