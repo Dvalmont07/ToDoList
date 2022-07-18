@@ -1,0 +1,56 @@
+@import url(http://fonts.googleapis.com/css?family=Kalam:700,400);
+
+.tooltip {
+	position: relative;
+	z-index: 999;
+}
+
+.tooltip-item {
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.tooltip-content {
+	position: absolute;
+	bottom: 100%;
+	left: 50%;
+	z-index: 9999;
+	margin: 0 0 105px -140px;
+	padding: 25px;
+	width: 280px;
+	border-radius: 10px/50%;
+	background: #fff;
+	color: #dd5864;
+	text-align: left;
+	font-size: 16px;
+	opacity: 0;
+	cursor: default;
+	transition: opacity 0.3s, transform 0.3s;
+	pointer-events: none;
+}
+
+.tooltip-turnright .tooltip-content {
+	transform: translate3d(0,50px,0) rotate3d(1,1,1,6deg);
+}
+
+.tooltip-turnleft .tooltip-content {
+	transform: translate3d(0,50px,0) rotate3d(1,1,1,-6deg);
+}
+
+.tooltip:hover .tooltip-content {
+	opacity: 1;
+	transform: translate3d(0,0,0);
+	pointer-events: auto;
+}
+
+.tooltip-content::after {
+	position: absolute;
+	top: 100%;
+	width: 60px;
+	height: 120px;
+	background: url("../../../assets/Images/questao-foto-placeholder-1.png") no-repeat center center;
+	background-size: 100%;
+	content: '';
+	transition: transform 0.3s;
+	transform-origin: 50% 0;
+}

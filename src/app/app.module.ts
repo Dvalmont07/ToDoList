@@ -38,12 +38,10 @@ import { ElementClickComponent } from './pages/element-click/element-click.compo
 import { IndexDBTestsComponent } from './pages/indexDBTests/indexDBTests.component';
 import { BlocoTextoComponent } from './pages/bloco-texto/bloco-texto.component';
 import { NewPrintComponent } from './pages/new-print/new-print.component';
+import { FollowingScrollComponent } from './pages/following-scroll/following-scroll.component';
 
 
 // import { QuillModule } from 'ngx-quill'
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,6 +58,7 @@ import { NewPrintComponent } from './pages/new-print/new-print.component';
     IndexDBTestsComponent,
     BlocoTextoComponent,
     NewPrintComponent,
+    FollowingScrollComponent,
     
   ],
   imports: [
@@ -92,7 +91,7 @@ import { NewPrintComponent } from './pages/new-print/new-print.component';
     TasksMainComponent,
     TaskEditComponent,
     PrintComponent, 
-    IndexDBTestsComponent, BlocoTextoComponent, NewPrintComponent,
+    IndexDBTestsComponent, BlocoTextoComponent, NewPrintComponent, FollowingScrollComponent,
     
   ],
 
